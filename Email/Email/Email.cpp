@@ -1,14 +1,16 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <string>
+#include <map>
 
 using namespace std;
 
-int StartMenu();
-int Login();
+int StartMenu(map<string, string>);
+bool Login(map<string, string>);
 
-int StartMenu()
+int StartMenu(map<string, string> loginInfo)
 {
+	int loginAttempts = 1, maxAttempts = 3;
 	char command;
 	cout << "Type a command: ";
 
@@ -18,7 +20,7 @@ int StartMenu()
 		if (command == 'L')
 		{
 			cout << endl;
-			Login();
+			while (maxAttempts >= loginAttempts++ && !Login(loginInfo));
 			return 0;
 		}
 		else if (command == 'R')
@@ -36,60 +38,63 @@ int StartMenu()
 	} while (true);
 }
 
-int Login()
+bool Login(map<string, string> userInfo)
 {
-	string username, password, buffer;
-	const char DELIMITER = ':';
-	int position = 0, positionPass = 0;
-	bool match = true;
+	string username, password;
+	bool match = false;
 
 	cout << "Type your username: ";
 	cin >> username;
-
 	cout << "Type your password: ";
 	cin >> password;
 
-	fstream users;
-	users.open("users.txt", fstream::in);
-
-	while (getline(users, buffer))
+	for (auto& pair : userInfo)
 	{
-		while(buffer[position] != DELIMITER)
+		if (pair.first == username && pair.second == password)
 		{
-			if (buffer[position] != username[position++])
-			{
-				match = false;
-				break;
-			}
-		}
-
-		position++;
-
-		while (match && buffer[position] != '\0')
-		{
-			if (buffer[position++] != password[positionPass++])
-			{
-				match = false;
-				break;
-			}
-		}
-
-		if (match)
-		{
-			cout << "Login successful!";
-			return 1;
+			match = true;
+			break;
 		}
 	}
 
-	cout << "Login unsuccessful!";
-	users.close();
-	return 0;
-
+	if (match)
+	{
+		cout << "Successful login!" << endl;
+		return true;
+	}
+	else
+	{
+		cout << "Unsuccessful login. Try again!" << endl;
+		return false;
+	}
 }
 
 int main()
 {
-	if (StartMenu() == 1)
+	fstream users;
+	users.open("users.txt", fstream::in);
+
+	map<string, string> userPass;
+	string username, password, buffer;
+	const char DELIMITER = ':';
+
+	while (getline(users, buffer))
+	{
+		username = buffer.substr(0, buffer.find(DELIMITER));
+		password = buffer.substr(buffer.find(DELIMITER) + 1);
+		userPass.insert(pair<string, string>(username, password));
+	}
+
+	users.close();
+
+	/*for (auto& t : userPass)
+	{
+		cout << t.first << " "
+			<< t.second << " "
+			<< "\n";
+	}*/
+
+	if (StartMenu(userPass) == 1)
 	{
 		return 1;
 	}
