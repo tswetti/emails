@@ -5,20 +5,20 @@
 using namespace std;
 
 int StartMenu();
+int Login();
 
 int StartMenu()
 {
-	//fstream users;
-	//users.open("users.txt", fstream::in);
-
 	char command;
-
 	cout << "Type a command: ";
+
 	do
 	{
 		cin >> command;
 		if (command == 'L')
 		{
+			cout << endl;
+			Login();
 			return 0;
 		}
 		else if (command == 'R')
@@ -27,7 +27,6 @@ int StartMenu()
 		}
 		else if (command == 'Q')
 		{
-			//users.close();
 			return 1;
 		}
 		else 
@@ -35,6 +34,57 @@ int StartMenu()
 			cout << "Invalid command! Try again: ";
 		}
 	} while (true);
+}
+
+int Login()
+{
+	string username, password, buffer;
+	const char DELIMITER = ':';
+	int position = 0, positionPass = 0;
+	bool match = true;
+
+	cout << "Type your username: ";
+	cin >> username;
+
+	cout << "Type your password: ";
+	cin >> password;
+
+	fstream users;
+	users.open("users.txt", fstream::in);
+
+	while (getline(users, buffer))
+	{
+		while(buffer[position] != DELIMITER)
+		{
+			if (buffer[position] != username[position++])
+			{
+				match = false;
+				break;
+			}
+		}
+
+		position++;
+
+		while (match && buffer[position] != '\0')
+		{
+			if (buffer[position++] != password[positionPass++])
+			{
+				match = false;
+				break;
+			}
+		}
+
+		if (match)
+		{
+			cout << "Login successful!";
+			return 1;
+		}
+	}
+
+	cout << "Login unsuccessful!";
+	users.close();
+	return 0;
+
 }
 
 int main()
