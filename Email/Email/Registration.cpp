@@ -3,29 +3,18 @@
 #include <fstream>
 #include <string>
 #include <unordered_map>
+#include <direct.h>
 
 using namespace std;
 
-bool Registration(map<string, string> userInfo, string& username, string& password)
+bool Registration(map<string, string> usersInfo, string& username, string& password)
 {
-	bool availableName = true;
-
 	do
 	{
-		availableName = true;
 		cout << "Type a username: ";
 		cin >> username;
-
-		for (auto& pair : userInfo)
-		{
-			if (pair.first == username)
-			{
-				cout << "The username is taken!" << endl;
-				availableName = false;
-				break;
-			}
-		}
-	} while (!availableName);
+	}
+	while (!isValidUsername(usersInfo, username));
 
 	do
 	{
@@ -36,13 +25,16 @@ bool Registration(map<string, string> userInfo, string& username, string& passwo
 	hash<string> passHash;
 	password = to_string(passHash(password));
 
-	fstream users;
-	users.open("users.txt", fstream::out | fstream::app);
-	users << username << ':' << password << endl;
-	users.close();
+	if (!CreateDirectory(username))
+	{
+		cout << "Unable to create a directory. Registration failed." << endl;
+		return 0;
+	}
 
+	SaveNewUser(usersInfo, username, password);
+
+	cout << "Successful registration!" << endl;
 	return 1;
-
 }
 
 bool isValidPassword(string password)
@@ -56,7 +48,6 @@ bool isValidPassword(string password)
 	bool hasUppercase = false;
 	bool hasDigit = false;
 	bool hasSymbol = false;
-	bool isSymbol = false;
 
 	char allowedSymbols[9] = { '&', '*', '<', '>', '?', '.', '+', '-' };
 
@@ -76,7 +67,7 @@ bool isValidPassword(string password)
 		}
 		else
 		{
-			isSymbol = false;
+			bool isSymbol = false;
 			for (char symbol : allowedSymbols)
 			{
 				if (el == symbol)
@@ -97,8 +88,55 @@ bool isValidPassword(string password)
 	{
 		return true;
 	}
-	else
+	return false;
+}
+
+bool isValidUsername(map<string, string> usersInfo, string username)
+{
+	for (char el : username)
+	{
+		if (el < 65 || el > 122 || (el > 90 && el < 97))
+		{
+			cout << "The username must consist of latin letters only!" << endl;
+			return false;
+		}
+	}
+
+	for (auto& pair : usersInfo)
+	{
+		if (pair.first == username)
+		{
+			cout << "The username is taken." << endl;
+			return false;
+		}
+	}
+}
+
+bool CreateDirectory(string username)
+{
+	char* name = new char[50];
+	int cnt = 0;
+	for (char el : username)
+	{
+		name[cnt++] = el;
+	}
+	name[cnt] = '\0';
+
+	if (_mkdir(name) != 0)
 	{
 		return false;
 	}
+
+	delete[] name;
+	return true;
+}
+
+void SaveNewUser(map<string, string>& usersInfo, string username, string password)
+{
+	fstream users;
+	users.open("users.txt", fstream::out | fstream::app);
+	users << username << ':' << password << endl;
+	users.close();
+
+	usersInfo.insert(pair<string, string>(username, password));
 }

@@ -6,5 +6,6 @@
 
 using namespace std;
 
+void UsersInfoToMap(map<string, string>&);
 int StartMenuScreen(map<string, string>, string&, string&);
 bool Login(map<string, string>, string&);

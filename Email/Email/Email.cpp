@@ -9,33 +9,19 @@ using namespace std;
 
 int main()
 {
-	fstream users;
-	users.open("users.txt", fstream::in);
+	string username = "", password = "";
+	map<string, string> usersPass;
 
-	map<string, string> userPass;
-	string username, password, buffer;
-	const char DELIMITER = ':';
+	UsersInfoToMap(usersPass);
 
-	while (getline(users, buffer))
-	{
-		username = buffer.substr(0, buffer.find(DELIMITER));
-		password = buffer.substr(buffer.find(DELIMITER) + 1);
-		userPass.insert(pair<string, string>(username, password));
-	}
-
-	username = "";
-	password = "";
-
-	users.close();
-
-	/*for (auto& t : userPass)
+	/*for (auto& t : usersPass)
 	{
 		cout << t.first << " "
 			<< t.second << " "
 			<< "\n";
 	}*/
 
-	int startMenuRes = StartMenuScreen(userPass, username, password);
+	int startMenuRes = StartMenuScreen(usersPass, username, password);
 
 	if (startMenuRes == 1)
 	{
@@ -47,7 +33,7 @@ int main()
 	}
 	else if (startMenuRes == 3)
 	{
-		userPass.insert(pair<string, string>(username, password));
+		cout << endl << "Welcome, " << username << '!' << endl;
 	}
 
 	return 0;

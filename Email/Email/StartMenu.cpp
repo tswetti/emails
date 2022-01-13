@@ -8,6 +8,23 @@
 
 using namespace std;
 
+void UsersInfoToMap(map<string, string>& info)
+{
+	string key, value, buffer, fileName = "users.txt";
+	const char DELIMITER = ':';
+
+	fstream usersInfo;
+	usersInfo.open(fileName, fstream::in);
+
+	while (getline(usersInfo, buffer))
+	{
+		key = buffer.substr(0, buffer.find(DELIMITER));
+		value = buffer.substr(buffer.find(DELIMITER) + 1);
+		info.insert(pair<string, string>(key, value));
+	}
+	usersInfo.close();
+}
+
 int StartMenuScreen(map<string, string> loginInfo, string& username, string& password)
 {
 	int loginAttempts = 0, maxAttempts = 3;
@@ -29,7 +46,11 @@ int StartMenuScreen(map<string, string> loginInfo, string& username, string& pas
 		}
 		else if (command == 'R')
 		{
-			Registration(loginInfo, username, password);
+			cout << endl;
+			if (!Registration(loginInfo, username, password))
+			{
+				return 1;
+			}
 			return 3;
 		}
 		else if (command == 'Q')
