@@ -1,14 +1,16 @@
 #include "StartMenu.h"
+#include "Registration.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <map>
+#include <unordered_map>
 
 using namespace std;
 
-int StartMenuScreen(map<string, string> loginInfo)
+int StartMenuScreen(map<string, string> loginInfo, string& username, string& password)
 {
-	int loginAttempts = 1, maxAttempts = 3;
+	int loginAttempts = 0, maxAttempts = 3;
 	char command;
 	cout << "Type a command: ";
 
@@ -18,12 +20,17 @@ int StartMenuScreen(map<string, string> loginInfo)
 		if (command == 'L')
 		{
 			cout << endl;
-			while (maxAttempts >= loginAttempts++ && !Login(loginInfo));
-			return 0;
+			while (++loginAttempts <= maxAttempts && !Login(loginInfo, username));
+			if (loginAttempts == maxAttempts + 1)
+			{
+				return 1;
+			}
+			return 2;
 		}
 		else if (command == 'R')
 		{
-			return 0;
+			Registration(loginInfo, username, password);
+			return 3;
 		}
 		else if (command == 'Q')
 		{
@@ -36,19 +43,20 @@ int StartMenuScreen(map<string, string> loginInfo)
 	} while (true);
 }
 
-bool Login(map<string, string> userInfo)
+bool Login(map<string, string> userInfo, string& username)
 {
-	string username, password;
+	string password;
 	bool match = false;
 
 	cout << "Type your username: ";
 	cin >> username;
 	cout << "Type your password: ";
 	cin >> password;
+	hash<string> passHash;
 
 	for (auto& pair : userInfo)
 	{
-		if (pair.first == username && pair.second == password)
+		if (pair.first == username && pair.second == to_string(passHash(password)))
 		{
 			match = true;
 			break;
@@ -62,7 +70,8 @@ bool Login(map<string, string> userInfo)
 	}
 	else
 	{
-		cout << "Unsuccessful login. Try again!" << endl;
+		cout << "Unsuccessful login." << endl;
+		username = "";
 		return false;
 	}
 }

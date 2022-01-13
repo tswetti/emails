@@ -1,4 +1,5 @@
 ﻿#include "StartMenu.h"
+#include "Registration.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,6 +23,9 @@ int main()
 		userPass.insert(pair<string, string>(username, password));
 	}
 
+	username = "";
+	password = "";
+
 	users.close();
 
 	/*for (auto& t : userPass)
@@ -31,9 +35,19 @@ int main()
 			<< "\n";
 	}*/
 
-	if (StartMenuScreen(userPass) == 1)
+	int startMenuRes = StartMenuScreen(userPass, username, password);
+
+	if (startMenuRes == 1)
 	{
 		return 1;
+	}
+	else if (startMenuRes == 2)
+	{
+		cout << endl << "Welcome back, " << username << '!' << endl;
+	}
+	else if (startMenuRes == 3)
+	{
+		userPass.insert(pair<string, string>(username, password));
 	}
 
 	return 0;
