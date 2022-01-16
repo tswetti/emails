@@ -33,6 +33,12 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 		password = "";
 		StartMenuScreen(userInfo, username, password);
 	}
+	else if (command == 'L')
+	{
+		username = "";
+		password = "";
+		StartMenuScreen(userInfo, username, password);
+	}
 
 	return 0;
 }
