@@ -1,5 +1,6 @@
 ﻿#include "StartMenu.h"
 #include "Registration.h"
+#include "MainMenu.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -35,6 +36,8 @@ int main()
 	{
 		cout << endl << "Welcome, " << username << '!' << endl;
 	}
+
+	MainMenu(username, password);
 
 	return 0;
 }

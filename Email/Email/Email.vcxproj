@@ -140,10 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Email.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="StartMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Registration.h" />
     <ClInclude Include="StartMenu.h" />
   </ItemGroup>
