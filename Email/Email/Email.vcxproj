@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CloseAccount.cpp" />
     <ClCompile Include="Email.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="StartMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CloseAccount.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Registration.h" />
     <ClInclude Include="StartMenu.h" />

@@ -1,6 +1,7 @@
 ﻿#include "StartMenu.h"
 #include "Registration.h"
 #include "MainMenu.h"
+#include "CloseAccount.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,13 +15,6 @@ int main()
 	map<string, string> usersPass;
 
 	UsersInfoToMap(usersPass);
-
-	/*for (auto& t : usersPass)
-	{
-		cout << t.first << " "
-			<< t.second << " "
-			<< "\n";
-	}*/
 
 	int startMenuRes = StartMenuScreen(usersPass, username, password);
 
@@ -37,7 +31,7 @@ int main()
 		cout << endl << "Welcome, " << username << '!' << endl;
 	}
 
-	MainMenu(username, password);
+	MainMenu(username, password, usersPass);
 
 	return 0;
 }
