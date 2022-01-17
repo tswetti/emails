@@ -33,6 +33,9 @@
     <ClCompile Include="SendMail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Inbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartMenu.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SendMail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Inbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
