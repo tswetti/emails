@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 #include "StartMenu.h"
 #include "CloseAccount.h"
+#include "SendMail.h"
 #include <iostream>
 #include <fstream>
 #include <cstdio>
@@ -39,6 +40,10 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 		password = "";
 		StartMenuScreen(userInfo, username, password);
 	}
+	else if (command == 'S')
+	{
+		SendMail(username, userInfo);
+	}
 
 	return 0;
 }
@@ -59,14 +64,17 @@ int GetTotalMails(string username)
 	string fileName = username + "/totalMails.txt";
 	string buffer = "";
 	int cnt = 0;
-	totalMails.open(fileName, fstream::in);
+	totalMails.open(fileName, fstream::out | fstream::app);
 
 	if (!totalMails.is_open())
 	{
-		cout << "Error loading total emails. Please, try again later.";
+		cout << "Error loading mails count. Please, try again later.";
 		return -1;
 	}
 
+	totalMails.close();
+
+	totalMails.open(fileName, fstream::in);
 	while (getline(totalMails, buffer))
 	{
 		cnt++;
