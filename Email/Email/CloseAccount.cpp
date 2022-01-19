@@ -1,4 +1,5 @@
 #include "CloseAccount.h"
+#include "MainMenu.h"
 #include <iostream>
 #include <fstream>
 #include <cstdio>
@@ -35,8 +36,32 @@ bool CloseAccount(string username, string password, map<string, string>& userInf
 
 bool DeleteDirectory(string username)
 {
-	char name[50] = { };
+	int mailsCnt = GetTotalMails(username);
+	string fileName;
+	char file[50] = { };
 	int cnt = 0;
+	for (int i = 1; i <= mailsCnt; i++)
+	{
+		fileName = username + "/" + to_string(i) + ".txt";
+		file[50] = { };
+		cnt = 0;
+		for (char el : fileName)
+		{
+			file[cnt++] = el;
+		}
+		remove(file);
+	}
+	cnt = 0;
+	fileName = username + "/totalMails.txt";
+	char fileMeta[50] = { };
+	for (char el : fileName)
+	{
+		fileMeta[cnt++] = el;
+	}
+	remove(fileMeta);
+
+	char name[50] = { };
+	cnt = 0;
 	for (char el : username)
 	{
 		name[cnt++] = el;
