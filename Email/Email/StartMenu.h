@@ -7,5 +7,5 @@
 using namespace std;
 
 void UsersInfoToMap(map<string, string>&);
-int StartMenuScreen(map<string, string>, string&, string&);
-bool Login(map<string, string>, string&);
+int StartMenuScreen(const map<string, string>&, string&, string&);
+bool Login(const map<string, string>&, string&, string&);

@@ -25,7 +25,7 @@ void UsersInfoToMap(map<string, string>& info)
 	usersInfo.close();
 }
 
-int StartMenuScreen(map<string, string> loginInfo, string& username, string& password)
+int StartMenuScreen(const map<string, string>& loginInfo, string& username, string& password)
 {
 	int loginAttempts = 0, maxAttempts = 3;
 	char command;
@@ -37,7 +37,7 @@ int StartMenuScreen(map<string, string> loginInfo, string& username, string& pas
 		if (command == 'L')
 		{
 			cout << endl;
-			while (++loginAttempts <= maxAttempts && !Login(loginInfo, username));
+			while (++loginAttempts <= maxAttempts && !Login(loginInfo, username, password));
 			if (loginAttempts == maxAttempts + 1)
 			{
 				return 1;
@@ -64,20 +64,21 @@ int StartMenuScreen(map<string, string> loginInfo, string& username, string& pas
 	} while (true);
 }
 
-bool Login(map<string, string> userInfo, string& username)
+bool Login(const map<string, string>& userInfo, string& username, string& password)
 {
-	string password;
 	bool match = false;
 
 	cout << "Type your username: ";
 	cin >> username;
 	cout << "Type your password: ";
 	cin >> password;
+
 	hash<string> passHash;
+	password = to_string(passHash(password));
 
 	for (auto& pair : userInfo)
 	{
-		if (pair.first == username && pair.second == to_string(passHash(password)))
+		if (pair.first == username && pair.second == password)
 		{
 			match = true;
 			break;
@@ -93,6 +94,7 @@ bool Login(map<string, string> userInfo, string& username)
 	{
 		cout << "Unsuccessful login." << endl;
 		username = "";
+		password = "";
 		return false;
 	}
 }

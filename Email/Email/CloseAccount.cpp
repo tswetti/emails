@@ -16,14 +16,18 @@ bool CloseAccount(string username, string password, map<string, string>& userInf
 	cin >> inputPass;
 
 	hash<string> passHash;
-	inputPass = to_string(passHash(password));
+	inputPass = to_string(passHash(inputPass));
 
 	if (inputPass != password)
 	{
+		cout << "Wrong password!";
 		return false;
 	}
 
-	DeleteDirectory(username);
+	if (!DeleteDirectory(username))
+	{
+		cout << "Error while deleting directory.";
+	}
 	userInfo.erase(username);
 	RewriteFile(username, password);
 	return true;
@@ -31,7 +35,7 @@ bool CloseAccount(string username, string password, map<string, string>& userInf
 
 bool DeleteDirectory(string username)
 {
-	char* name = new char[50];
+	char name[50] = { };
 	int cnt = 0;
 	for (char el : username)
 	{
@@ -41,11 +45,9 @@ bool DeleteDirectory(string username)
 
 	if (_rmdir(name) != 0)
 	{
-		delete[] name;
 		return false;
 	}
 
-	delete[] name;
 	return true;
 }
 
@@ -58,9 +60,9 @@ void RewriteFile(string username, string password)
 
 	while (getline(users, buffer))
 	{
-		if (buffer != (username + ":" + password))
+		if (buffer != (username + ':' + password))
 		{
-			usersCopy << buffer;
+			usersCopy << buffer << endl;
 		}
 	}
 

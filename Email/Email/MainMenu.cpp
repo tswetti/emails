@@ -3,6 +3,7 @@
 #include "CloseAccount.h"
 #include "SendMail.h"
 #include "Inbox.h"
+#include "OpenMail.h"
 #include <iostream>
 #include <fstream>
 #include <cstdio>
@@ -18,10 +19,11 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 	int mails = GetTotalMails(username);
 	if (mails == -1)
 	{
-		return 1;
+		return 0;
 	}
 	
 	PrintMainMenuGuide(mails);
+	cout << "Type a command: ";
 	char command;
 	cin >> command;
 
@@ -33,23 +35,33 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 		}
 		username = "";
 		password = "";
-		StartMenuScreen(userInfo, username, password);
+		cout << endl;
+		return 1;
 	}
 	else if (command == 'I')
 	{
 		PrintMailsSubject(username, mails);
+		cout << endl;
+		return 2;
 	}
 	else if (command == 'L')
 	{
 		username = "";
 		password = "";
 		cout << endl;
-		StartMenuScreen(userInfo, username, password);
+		return 1;
+	}
+	else if (command == 'O')
+	{
+		OpenMail(username);
+		cout << endl;
+		return 2;
 	}
 	else if (command == 'S')
 	{
 		SendMail(username, userInfo);
-		MainMenu(username, password, userInfo);
+		cout << endl;
+		return 2;
 	}
 
 	return 0;

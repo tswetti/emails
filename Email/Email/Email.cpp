@@ -16,22 +16,37 @@ int main()
 
 	UsersInfoToMap(usersPass);
 
-	int startMenuRes = StartMenuScreen(usersPass, username, password);
+	int mainMenuRes = 5;
+	do
+	{
+		int startMenuRes = StartMenuScreen(usersPass, username, password);
+		if (startMenuRes == 1)
+		{
+			return 1;
+		}
+		else if (startMenuRes == 2)
+		{
+			cout << endl << "Welcome back, " << username << '!' << endl;
+		}
+		else if (startMenuRes == 3)
+		{
+			cout << endl << "Welcome, " << username << '!' << endl;
+		}
 
-	if (startMenuRes == 1)
+		mainMenuRes = MainMenu(username, password, usersPass);
+		while (mainMenuRes == 2)
+		{
+			mainMenuRes = MainMenu(username, password, usersPass);
+		}
+	} while (mainMenuRes == 1);
+	/*if (mainMenuRes == 1)
 	{
-		return 1;
+		StartMenuScreen(usersPass, username, password);
 	}
-	else if (startMenuRes == 2)
+	else if (mainMenuRes == 2)
 	{
-		cout << endl << "Welcome back, " << username << '!' << endl;
-	}
-	else if (startMenuRes == 3)
-	{
-		cout << endl << "Welcome, " << username << '!' << endl;
-	}
-
-	MainMenu(username, password, usersPass);
+		MainMenu(username, password, usersPass);
+	}*/
 
 	return 0;
 }

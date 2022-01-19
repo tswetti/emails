@@ -116,7 +116,7 @@ bool isValidUsername(map<string, string> usersInfo, string username)
 
 bool CreateDirectory(string username)
 {
-	char* name = new char[50];
+	char name[50];
 	int cnt = 0;
 	for (char el : username)
 	{
@@ -126,11 +126,9 @@ bool CreateDirectory(string username)
 
 	if (_mkdir(name) != 0)
 	{
-		delete[] name;
 		return false;
 	}
 
-	delete[] name;
 	return true;
 }
 
