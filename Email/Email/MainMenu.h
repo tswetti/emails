@@ -7,5 +7,5 @@
 using namespace std;
 
 int MainMenu(string&, string&, map<string, string>&);
-int GetTotalMails(string);
-void PrintMainMenuGuide(int);
+int GetTotalMails(const string&);
+void PrintMainMenuGuide(const int&);

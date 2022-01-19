@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int SendMail(string username, map<string, string> users)
+int SendMail(const string& username, const map<string, string>& users)
 {
 	string recipient, subject, content;
 	getNewMailInfo(recipient, subject, content, users);
@@ -25,7 +25,7 @@ int SendMail(string username, map<string, string> users)
 	return 0;
 }
 
-void getNewMailInfo(string& recipient, string& subject, string& content, map<string, string> users)
+void getNewMailInfo(string& recipient, string& subject, string& content, const map<string, string>& users)
 {
 	bool match = false;
 	do
@@ -55,7 +55,7 @@ void getNewMailInfo(string& recipient, string& subject, string& content, map<str
 	getline(cin, content);
 }
 
-void NewMailToMailCnt(string username, string recipient)
+void NewMailToMailCnt(const string& username, const string& recipient)
 {
 	string recFileName = recipient + "/totalMails.txt";
 	fstream newMail;
@@ -64,7 +64,7 @@ void NewMailToMailCnt(string username, string recipient)
 	newMail.close();
 }
 
-void AddNewMailInfo(string username, string recipient, int& mails, string subject, string content)
+void AddNewMailInfo(const string& username, const string& recipient, int& mails, const string& subject, const string& content)
 {
 	fstream newMailInfo;
 	string recFileName = recipient + "/" + to_string(++mails) + ".txt";

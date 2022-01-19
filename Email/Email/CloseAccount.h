@@ -6,6 +6,6 @@
 
 using namespace std;
 
-bool CloseAccount(string, string, map<string, string>&);
-bool DeleteDirectory(string);
-void RewriteFile(string, string);
+bool CloseAccount(const string&, const string&, map<string, string>&);
+bool DeleteDirectory(const string&);
+void RewriteFile(const string&, const string&);

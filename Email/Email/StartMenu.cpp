@@ -25,7 +25,7 @@ void UsersInfoToMap(map<string, string>& info)
 	usersInfo.close();
 }
 
-int StartMenuScreen(const map<string, string>& loginInfo, string& username, string& password)
+int StartMenuScreen(map<string, string>& loginInfo, string& username, string& password)
 {
 	int loginAttempts = 0, maxAttempts = 3;
 	char command;

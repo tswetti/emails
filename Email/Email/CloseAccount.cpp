@@ -10,7 +10,7 @@
 
 using namespace std;
 
-bool CloseAccount(string username, string password, map<string, string>& userInfo)
+bool CloseAccount(const string& username, const string& password, map<string, string>& userInfo)
 {
 	string inputPass;
 	cout << "Are you sure you want to delete your account? Enter your password to continue: ";
@@ -34,16 +34,15 @@ bool CloseAccount(string username, string password, map<string, string>& userInf
 	return true;
 }
 
-bool DeleteDirectory(string username)
+bool DeleteDirectory(const string& username)
 {
 	int mailsCnt = GetTotalMails(username);
 	string fileName;
-	char file[50] = { };
 	int cnt = 0;
 	for (int i = 1; i <= mailsCnt; i++)
 	{
 		fileName = username + "/" + to_string(i) + ".txt";
-		file[50] = { };
+		char file[50] = { };
 		cnt = 0;
 		for (char el : fileName)
 		{
@@ -76,7 +75,7 @@ bool DeleteDirectory(string username)
 	return true;
 }
 
-void RewriteFile(string username, string password)
+void RewriteFile(const string& username, const string& password)
 {
 	fstream users, usersCopy;
 	string buffer = "";

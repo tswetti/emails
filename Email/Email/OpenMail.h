@@ -6,4 +6,4 @@
 
 using namespace std;
 
-void OpenMail(string);
+void OpenMail(const string&);

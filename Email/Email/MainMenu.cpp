@@ -67,7 +67,7 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 	return 0;
 }
 
-void PrintMainMenuGuide(int mails)
+void PrintMainMenuGuide(const int& mails)
 {
 	cout << "You have " << mails << " mails. Choose one of the following options:" << endl;
 	cout << "C - close account" << endl
@@ -78,7 +78,7 @@ void PrintMainMenuGuide(int mails)
 		<< endl;
 }
 
-int GetTotalMails(string username)
+int GetTotalMails(const string& username)
 {
 	fstream totalMails;
 	string fileName = username + "/totalMails.txt";

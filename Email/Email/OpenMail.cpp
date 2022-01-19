@@ -12,7 +12,7 @@
 
 using namespace std;
 
-void OpenMail(string username)
+void OpenMail(const string& username)
 {
 	int mail;
 	cin >> mail;

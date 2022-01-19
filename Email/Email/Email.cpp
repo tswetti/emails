@@ -39,14 +39,6 @@ int main()
 			mainMenuRes = MainMenu(username, password, usersPass);
 		}
 	} while (mainMenuRes == 1);
-	/*if (mainMenuRes == 1)
-	{
-		StartMenuScreen(usersPass, username, password);
-	}
-	else if (mainMenuRes == 2)
-	{
-		MainMenu(username, password, usersPass);
-	}*/
 
 	return 0;
 }

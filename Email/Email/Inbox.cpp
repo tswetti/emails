@@ -12,7 +12,7 @@
 
 using namespace std;
 
-void PrintMailsSubject(string username, int mails)
+void PrintMailsSubject(const string& username, const int& mails)
 {
 	for (int i = 1; i <= mails; i++)
 	{
@@ -21,7 +21,7 @@ void PrintMailsSubject(string username, int mails)
 	}
 }
 
-void PrintOneMail(string username, int mail)
+void PrintOneMail(const string& username, const int& mail)
 {
 	string fileName = username + "/" + to_string(mail) + ".txt";
 	fstream mailInfo;

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-bool Registration(map<string, string> usersInfo, string& username, string& password)
+bool Registration(map<string, string>& usersInfo, string& username, string& password)
 {
 	do
 	{
@@ -37,7 +37,7 @@ bool Registration(map<string, string> usersInfo, string& username, string& passw
 	return 1;
 }
 
-bool isValidPassword(string password)
+bool isValidPassword(const string& password)
 {
 	if (password.length() < 6)
 	{
@@ -91,7 +91,7 @@ bool isValidPassword(string password)
 	return false;
 }
 
-bool isValidUsername(map<string, string> usersInfo, string username)
+bool isValidUsername(const map<string, string>& usersInfo, const string& username)
 {
 	for (char el : username)
 	{
@@ -114,7 +114,7 @@ bool isValidUsername(map<string, string> usersInfo, string username)
 	return true;
 }
 
-bool CreateDirectory(string username)
+bool CreateDirectory(const string& username)
 {
 	char name[50];
 	int cnt = 0;
@@ -132,7 +132,7 @@ bool CreateDirectory(string username)
 	return true;
 }
 
-void SaveNewUser(map<string, string>& usersInfo, string username, string password)
+void SaveNewUser(map<string, string>& usersInfo, const string& username, const string& password)
 {
 	fstream users;
 	users.open("users.txt", fstream::out | fstream::app);

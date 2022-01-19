@@ -6,8 +6,8 @@
 
 using namespace std;
 
-bool Registration(map<string, string>, string&, string&);
-bool isValidPassword(string);
-bool isValidUsername(map<string, string>, string);
-bool CreateDirectory(string);
-void SaveNewUser(map<string, string>&, string, string);
+bool Registration(map<string, string>&, string&, string&);
+bool isValidPassword(const string&);
+bool isValidUsername(const map<string, string>&, const string&);
+bool CreateDirectory(const string&);
+void SaveNewUser(map<string, string>&, const string&, const string&);
