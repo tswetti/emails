@@ -98,3 +98,45 @@ bool Login(const map<string, string>& userInfo, string& username, string& passwo
 		return false;
 	}
 }
+
+void ValidateUsersFile()
+{
+	fstream users;
+	users.open("users.txt", fstream::in);
+	fstream usersCopy;
+	usersCopy.open("usersCopy.txt", fstream::out);
+	string buffer = "";
+	int colonCnt = 0;
+	while (getline(users, buffer))
+	{
+		colonCnt = 0;
+		if (buffer == "")
+		{
+			continue;
+		}
+		for (char el : buffer)
+		{
+			if (el != '&' && el != '*' && el != '<' && el != '>' && el != '?' && el != '.' && el != '+' && el != '-' && ((el < 65 || el > 122) || (el > 90 && el < 97)) && (el<48 || el>57))
+			{
+				if (el == ':')
+				{
+					colonCnt++;
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		if (colonCnt == 1)
+		{
+			usersCopy << buffer << endl;
+		}
+	}
+	users.close();
+	usersCopy.close();
+
+	remove("users.txt");
+	rename("usersCopy.txt", "users.txt");
+	remove("usersCopy.txt");
+}

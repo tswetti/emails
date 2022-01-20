@@ -11,6 +11,7 @@ using namespace std;
 
 int main()
 {
+	ValidateUsersFile();
 	string username = "", password = "";
 	map<string, string> usersPass;
 
