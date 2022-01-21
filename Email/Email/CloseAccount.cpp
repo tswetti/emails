@@ -1,5 +1,6 @@
 #include "CloseAccount.h"
 #include "MainMenu.h"
+#include "Validation.h"
 #include <iostream>
 #include <fstream>
 #include <cstdio>

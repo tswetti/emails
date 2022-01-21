@@ -1,13 +1,9 @@
 #include "SendMail.h"
-#include "CloseAccount.h"
 #include "MainMenu.h"
 #include <iostream>
 #include <fstream>
-#include <cstdio>
 #include <string>
 #include <map>
-#include <unordered_map>
-#include <direct.h>
 
 using namespace std;
 

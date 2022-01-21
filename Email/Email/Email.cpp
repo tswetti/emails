@@ -1,10 +1,7 @@
 ﻿#include "StartMenu.h"
-#include "Registration.h"
 #include "MainMenu.h"
-#include "CloseAccount.h"
 #include "Validation.h"
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <map>
 
