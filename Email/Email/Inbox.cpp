@@ -9,6 +9,11 @@ using namespace std;
 
 void PrintMailsSubject(const string& username, const int& mails)
 {
+	if (mails == 0)
+	{
+		cout << "You have no mails!" << endl;
+		return;
+	}
 	for (int i = 1; i <= mails; i++)
 	{
 		PrintOneMail(username, i);

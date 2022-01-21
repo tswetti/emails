@@ -9,23 +9,6 @@
 
 using namespace std;
 
-void UsersInfoToMap(map<string, string>& info)
-{
-	string key, value, buffer, fileName = "users.txt";
-	const char DELIMITER = ':';
-
-	fstream usersInfo;
-	usersInfo.open(fileName, fstream::in);
-
-	while (getline(usersInfo, buffer))
-	{
-		key = buffer.substr(0, buffer.find(DELIMITER));
-		value = buffer.substr(buffer.find(DELIMITER) + 1);
-		info.insert(pair<string, string>(key, value));
-	}
-	usersInfo.close();
-}
-
 int StartMenuScreen(map<string, string>& loginInfo, string& username, string& password)
 {
 	char command = '\0';
@@ -47,7 +30,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 				return 1;
 			}
 			cout << endl << "Welcome back, " << username << '!' << endl;
-			return 2;
+			return 0;
 		}
 		else if (command == 'R')
 		{
@@ -57,7 +40,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 				return 1;
 			}
 			cout << endl << "Welcome, " << username << '!' << endl;
-			return 2;
+			return 0;
 		}
 		else if (command == 'Q')
 		{
@@ -68,4 +51,21 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			cout << "Invalid command! Please, try again: ";
 		}
 	} while (true);
+}
+
+void UsersInfoToMap(map<string, string>& info)
+{
+	string key, value, buffer, fileName = "users.txt";
+	const char DELIMITER = ':';
+
+	fstream usersInfo;
+	usersInfo.open(fileName, fstream::in);
+
+	while (getline(usersInfo, buffer))
+	{
+		key = buffer.substr(0, buffer.find(DELIMITER));
+		value = buffer.substr(buffer.find(DELIMITER) + 1);
+		info.insert(pair<string, string>(key, value));
+	}
+	usersInfo.close();
 }

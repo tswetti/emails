@@ -29,7 +29,6 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 
 	do
 	{
-		command = '\0';
 		if (!isValidCommandLength(command))
 		{
 			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
@@ -87,13 +86,16 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 
 void PrintMainMenuGuide(const int& mails)
 {
-	cout << "You have " << mails << " mails. Choose one of the following options:" << endl;
+	cout << "You have " << mails;
+	cout << ((mails == 1) ? " mail. " : " mails. ");
+	cout << "Choose one of the following options : " << endl;
 	cout << "C - close account" << endl
 		<< "I - inbox" << endl
 		<< "L - logout" << endl
 		<< "O - open" << endl
 		<< "S - send" << endl
 		<< endl;
+	cin.ignore();
 }
 
 int GetTotalMails(const string& username)
