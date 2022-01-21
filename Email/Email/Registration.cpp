@@ -40,7 +40,7 @@ bool Registration(map<string, string>& usersInfo, string& username, string& pass
 
 bool CreateDirectory(const string& username)
 {
-	char name[50];
+	char* name = new char[username.length() + 1];
 	int cnt = 0;
 	for (char el : username)
 	{
@@ -50,9 +50,11 @@ bool CreateDirectory(const string& username)
 
 	if (_mkdir(name) != 0)
 	{
+		delete[] name;
 		return false;
 	}
-
+	
+	delete[] name;
 	return true;
 }
 

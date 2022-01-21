@@ -134,6 +134,12 @@ bool isValidPassword(const string& password)
 
 bool isValidUsername(const map<string, string>& usersInfo, const string& username)
 {
+	if (username.length() < 3 || username.length() > 20)
+	{
+		cout << "The username must be between 3 and 20 letters!" << endl;
+		return false;
+	}
+
 	for (char el : username)
 	{
 		if (!isLowercaseLetter(el) && !isUppercaseLetter(el))

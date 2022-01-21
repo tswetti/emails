@@ -54,14 +54,18 @@ bool DeleteDirectory(const string& username)
 	}
 	cnt = 0;
 	fileName = username + "/totalMails.txt";
-	char fileMeta[50] = { };
+	char* fileMeta = new char[fileName.length() + 1];
+	//char fileMeta[50] = { };
 	for (char el : fileName)
 	{
 		fileMeta[cnt++] = el;
 	}
+	fileMeta[cnt] = '\0';
 	remove(fileMeta);
+	delete[] fileMeta;
 
-	char name[50] = { };
+	//char name[50] = { };
+	char* name = new char[username.length() + 1];
 	cnt = 0;
 	for (char el : username)
 	{
@@ -71,9 +75,11 @@ bool DeleteDirectory(const string& username)
 
 	if (_rmdir(name) != 0)
 	{
+		delete[] name;
 		return false;
 	}
 
+	delete[] name;
 	return true;
 }
 

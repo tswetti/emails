@@ -21,6 +21,7 @@ int main()
 		int startMenuRes = StartMenuScreen(usersPass, username, password);
 		if (startMenuRes == 1)
 		{
+			cout << endl << "Thanks for using this application!";
 			return 1;
 		}
 
@@ -32,5 +33,6 @@ int main()
 		}
 	} while (mainMenuRes == 1);
 
+	cout << endl << "Thanks for using this application!";
 	return 0;
 }
