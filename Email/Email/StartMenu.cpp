@@ -1,5 +1,6 @@
 #include "StartMenu.h"
 #include "Registration.h"
+#include "Login.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -64,41 +65,6 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			cout << "Invalid command! Try again: ";
 		}
 	} while (true);
-}
-
-bool Login(const map<string, string>& userInfo, string& username, string& password)
-{
-	bool match = false;
-
-	cout << "Type your username: ";
-	cin >> username;
-	cout << "Type your password: ";
-	cin >> password;
-
-	hash<string> passHash;
-	password = to_string(passHash(password));
-
-	for (auto& pair : userInfo)
-	{
-		if (pair.first == username && pair.second == password)
-		{
-			match = true;
-			break;
-		}
-	}
-
-	if (match)
-	{
-		cout << "Successful login!" << endl;
-		return true;
-	}
-	else
-	{
-		cout << "Unsuccessful login." << endl;
-		username = "";
-		password = "";
-		return false;
-	}
 }
 
 void ValidateUsersFile()
