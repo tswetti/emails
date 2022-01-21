@@ -101,12 +101,7 @@ void ValidateUsersFile()
 		}
 		for (char el : buffer)
 		{
-			if (
-				el != '&' && el != '*' && el != '<' && el != '>' && el != '?' && el != '.' && el != '+' && el != '-' && 
-				((el < 65 || el > 122) || 
-				(el > 90 && el < 97)) && 
-				(el < 48 || el > 57)
-				)
+			if (!isLowercaseLetter(el) && !isUppercaseLetter(el) && !isDigit(el) && !isAllowedSpecialSymbol(el))
 			{
 				if (el == ':')
 				{

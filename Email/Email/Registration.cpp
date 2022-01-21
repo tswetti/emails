@@ -37,6 +37,34 @@ bool Registration(map<string, string>& usersInfo, string& username, string& pass
 	return 1;
 }
 
+bool isLowercaseLetter(const char& symbol)
+{
+	return symbol >= 97 && symbol <= 122;
+}
+
+bool isUppercaseLetter(const char& symbol)
+{
+	return symbol >= 65 && symbol <= 90;
+}
+
+bool isDigit(const char& symbol)
+{
+	return symbol >= 48 && symbol <= 57;
+}
+
+bool isAllowedSpecialSymbol(const char& symbol)
+{
+	char allowedSymbols[8] = { '&', '*', '<', '>', '?', '.', '+', '-' };
+	for (char el : allowedSymbols)
+	{
+		if (el == symbol)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 bool isValidPassword(const string& password)
 {
 	if (password.length() < 6)
@@ -49,38 +77,27 @@ bool isValidPassword(const string& password)
 	bool hasDigit = false;
 	bool hasSymbol = false;
 
-	char allowedSymbols[9] = { '&', '*', '<', '>', '?', '.', '+', '-' };
-
 	for (char el : password)
 	{
-		if (el >= 65 && el <= 90)
+		if (isUppercaseLetter(el))
 		{
 			hasUppercase = true;
 		}
-		else if (el >= 97 && el <= 122)
+		else if (isLowercaseLetter(el))
 		{
 			hasLowercase = true;
 		}
-		else if (el >= 48 && el <= 57)
+		else if (isDigit(el))
 		{
 			hasDigit = true;
 		}
 		else
 		{
-			bool isSymbol = false;
-			for (char symbol : allowedSymbols)
-			{
-				if (el == symbol)
-				{
-					hasSymbol = true;
-					isSymbol = true;
-					break;
-				}
-			}
-			if (!isSymbol)
+			if (!isAllowedSpecialSymbol(el))
 			{
 				return false;
 			}
+			hasSymbol = true;
 		}
 	}
 
@@ -95,7 +112,7 @@ bool isValidUsername(const map<string, string>& usersInfo, const string& usernam
 {
 	for (char el : username)
 	{
-		if (el < 65 || el > 122 || (el > 90 && el < 97))
+		if (!isLowercaseLetter(el) && !isUppercaseLetter(el))
 		{
 			cout << "The username must consist of latin letters only!" << endl;
 			return false;
