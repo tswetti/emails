@@ -28,7 +28,6 @@ void UsersInfoToMap(map<string, string>& info)
 
 int StartMenuScreen(map<string, string>& loginInfo, string& username, string& password)
 {
-	int loginAttempts = 0, maxAttempts = 3;
 	char command = '\0';
 	cout << "Type a command: ";
 
@@ -43,8 +42,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 		if (command == 'L')
 		{
 			cout << endl;
-			while (++loginAttempts <= maxAttempts && !Login(loginInfo, username, password));
-			if (loginAttempts == maxAttempts + 1)
+			if (!isLoggedIn(loginInfo, username, password))
 			{
 				return 1;
 			}

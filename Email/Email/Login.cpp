@@ -8,37 +8,31 @@
 
 using namespace std;
 
-bool Login(const map<string, string>& userInfo, string& username, string& password)
+bool isLoggedIn(const map<string, string>& userInfo, string& username, string& password)
 {
-	bool match = false;
-
-	cout << "Type your username: ";
-	cin >> username;
-	cout << "Type your password: ";
-	cin >> password;
-
-	hash<string> passHash;
-	password = to_string(passHash(password));
-
-	for (auto& pair : userInfo)
+	const int MAX_ATTEMPTS = 3;
+	for (int i = 0; i < MAX_ATTEMPTS; i++)
 	{
-		if (pair.first == username && pair.second == password)
+		cout << "Type your username: ";
+		cin >> username;
+		cout << "Type your password: ";
+		cin >> password;
+
+		hash<string> passHash;
+		password = to_string(passHash(password));
+
+		for (auto& pair : userInfo)
 		{
-			match = true;
-			break;
+			if (pair.first == username && pair.second == password)
+			{
+				cout << "Successful login!" << endl;
+				return true;
+			}
 		}
-	}
-
-	if (match)
-	{
-		cout << "Successful login!" << endl;
-		return true;
-	}
-	else
-	{
 		cout << "Unsuccessful login." << endl;
 		username = "";
 		password = "";
-		return false;
 	}
+	cout << "Your username or password was wrong 3 times. Please, try logging in later." << endl;
+	return false;
 }
