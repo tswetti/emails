@@ -148,6 +148,7 @@
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="SendMail.cpp" />
     <ClCompile Include="StartMenu.cpp" />
+    <ClCompile Include="Validation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CloseAccount.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Registration.h" />
     <ClInclude Include="SendMail.h" />
     <ClInclude Include="StartMenu.h" />
+    <ClInclude Include="Validation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

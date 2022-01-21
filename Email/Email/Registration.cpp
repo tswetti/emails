@@ -1,4 +1,5 @@
 #include "Registration.h"
+#include "Validation.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -35,100 +36,6 @@ bool Registration(map<string, string>& usersInfo, string& username, string& pass
 
 	cout << "Successful registration!" << endl;
 	return 1;
-}
-
-bool isLowercaseLetter(const char& symbol)
-{
-	return symbol >= 97 && symbol <= 122;
-}
-
-bool isUppercaseLetter(const char& symbol)
-{
-	return symbol >= 65 && symbol <= 90;
-}
-
-bool isDigit(const char& symbol)
-{
-	return symbol >= 48 && symbol <= 57;
-}
-
-bool isAllowedSpecialSymbol(const char& symbol)
-{
-	char allowedSymbols[8] = { '&', '*', '<', '>', '?', '.', '+', '-' };
-	for (char el : allowedSymbols)
-	{
-		if (el == symbol)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-bool isValidPassword(const string& password)
-{
-	if (password.length() < 6)
-	{
-		return false;
-	}
-
-	bool hasLowercase = false;
-	bool hasUppercase = false;
-	bool hasDigit = false;
-	bool hasSymbol = false;
-
-	for (char el : password)
-	{
-		if (isUppercaseLetter(el))
-		{
-			hasUppercase = true;
-		}
-		else if (isLowercaseLetter(el))
-		{
-			hasLowercase = true;
-		}
-		else if (isDigit(el))
-		{
-			hasDigit = true;
-		}
-		else
-		{
-			if (!isAllowedSpecialSymbol(el))
-			{
-				return false;
-			}
-			hasSymbol = true;
-		}
-	}
-
-	if (hasLowercase && hasUppercase && hasDigit && hasSymbol)
-	{
-		return true;
-	}
-	return false;
-}
-
-bool isValidUsername(const map<string, string>& usersInfo, const string& username)
-{
-	for (char el : username)
-	{
-		if (!isLowercaseLetter(el) && !isUppercaseLetter(el))
-		{
-			cout << "The username must consist of latin letters only!" << endl;
-			return false;
-		}
-	}
-
-	for (auto& pair : usersInfo)
-	{
-		if (pair.first == username)
-		{
-			cout << "The username is taken." << endl;
-			return false;
-		}
-	}
-	
-	return true;
 }
 
 bool CreateDirectory(const string& username)

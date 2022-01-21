@@ -4,6 +4,7 @@
 #include "SendMail.h"
 #include "Inbox.h"
 #include "OpenMail.h"
+#include "Validation.h"
 #include <iostream>
 #include <fstream>
 #include <cstdio>

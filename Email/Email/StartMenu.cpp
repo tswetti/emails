@@ -1,6 +1,7 @@
 #include "StartMenu.h"
 #include "Registration.h"
 #include "Login.h"
+#include "Validation.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -24,18 +25,6 @@ void UsersInfoToMap(map<string, string>& info)
 		info.insert(pair<string, string>(key, value));
 	}
 	usersInfo.close();
-}
-
-bool isValidCommandLength(char& command)
-{
-	string commandStr = "";
-	getline(cin, commandStr);
-	if (commandStr.length() != 1)
-	{
-		return false;
-	}
-	command = commandStr[0];
-	return true;
 }
 
 int StartMenuScreen(map<string, string>& loginInfo, string& username, string& password)
@@ -82,46 +71,4 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			cout << "Invalid command! Please, try again: ";
 		}
 	} while (true);
-}
-
-void ValidateUsersFile()
-{
-	fstream users;
-	users.open("users.txt", fstream::in);
-	fstream usersCopy;
-	usersCopy.open("usersCopy.txt", fstream::out);
-	string buffer = "";
-	int colonCnt = 0;
-	while (getline(users, buffer))
-	{
-		colonCnt = 0;
-		if (buffer == "")
-		{
-			continue;
-		}
-		for (char el : buffer)
-		{
-			if (!isLowercaseLetter(el) && !isUppercaseLetter(el) && !isDigit(el) && !isAllowedSpecialSymbol(el))
-			{
-				if (el == ':')
-				{
-					colonCnt++;
-				}
-				else
-				{
-					continue;
-				}
-			}
-		}
-		if (colonCnt == 1)
-		{
-			usersCopy << buffer << endl;
-		}
-	}
-	users.close();
-	usersCopy.close();
-
-	remove("users.txt");
-	rename("usersCopy.txt", "users.txt");
-	remove("usersCopy.txt");
 }
