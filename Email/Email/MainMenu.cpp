@@ -88,12 +88,13 @@ void PrintMainMenuGuide(const int& mails)
 {
 	cout << "You have " << mails;
 	cout << ((mails == 1) ? " mail. " : " mails. ");
-	cout << "Choose one of the following options : " << endl;
+	cout << "Choose one of the following options: " << endl;
 	cout << "C - close account" << endl
 		<< "I - inbox" << endl
 		<< "L - logout" << endl
 		<< "O - open" << endl
 		<< "S - send" << endl
+		<< "Q - quit" << endl
 		<< endl;
 	cin.ignore();
 }

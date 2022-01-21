@@ -11,6 +11,7 @@ using namespace std;
 
 int StartMenuScreen(map<string, string>& loginInfo, string& username, string& password)
 {
+	printStartMenuGuide();
 	char command = '\0';
 	cout << "Type a command: ";
 
@@ -68,4 +69,13 @@ void UsersInfoToMap(map<string, string>& info)
 		info.insert(pair<string, string>(key, value));
 	}
 	usersInfo.close();
+}
+
+void printStartMenuGuide()
+{
+	cout << "Choose one of the following options: " << endl;
+	cout << "L - login" << endl
+		<< "R - register" << endl
+		<< "Q - quit" << endl
+		<< endl;
 }
