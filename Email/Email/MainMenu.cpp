@@ -23,46 +23,63 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 	}
 	
 	PrintMainMenuGuide(mails);
+	char command = '\0';
 	cout << "Type a command: ";
-	char command;
-	cin >> command;
 
-	if (command == 'C')
+	do
 	{
-		if (CloseAccount(username, password, userInfo) == false)
+		command = '\0';
+		if (!isValidCommandLength(command))
+		{
+			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
+			continue;
+		}
+
+		if (command == 'C')
+		{
+			if (CloseAccount(username, password, userInfo) == false)
+			{
+				return 0;
+			}
+			username = "";
+			password = "";
+			cout << endl;
+			return 1;
+		}
+		else if (command == 'I')
+		{
+			PrintMailsSubject(username, mails);
+			cout << endl;
+			return 2;
+		}
+		else if (command == 'L')
+		{
+			username = "";
+			password = "";
+			cout << endl;
+			return 1;
+		}
+		else if (command == 'O')
+		{
+			OpenMail(username);
+			cout << endl;
+			return 2;
+		}
+		else if (command == 'S')
+		{
+			SendMail(username, userInfo);
+			cout << endl;
+			return 2;
+		}
+		else if (command == 'Q')
 		{
 			return 0;
 		}
-		username = "";
-		password = "";
-		cout << endl;
-		return 1;
-	}
-	else if (command == 'I')
-	{
-		PrintMailsSubject(username, mails);
-		cout << endl;
-		return 2;
-	}
-	else if (command == 'L')
-	{
-		username = "";
-		password = "";
-		cout << endl;
-		return 1;
-	}
-	else if (command == 'O')
-	{
-		OpenMail(username);
-		cout << endl;
-		return 2;
-	}
-	else if (command == 'S')
-	{
-		SendMail(username, userInfo);
-		cout << endl;
-		return 2;
-	}
+		else
+		{
+			cout << "Invalid command! Please, try again: ";
+		}
+	} while (true);
 
 	return 0;
 }

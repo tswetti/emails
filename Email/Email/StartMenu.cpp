@@ -26,15 +26,32 @@ void UsersInfoToMap(map<string, string>& info)
 	usersInfo.close();
 }
 
+bool isValidCommandLength(char& command)
+{
+	string commandStr = "";
+	getline(cin, commandStr);
+	if (commandStr.length() != 1)
+	{
+		return false;
+	}
+	command = commandStr[0];
+	return true;
+}
+
 int StartMenuScreen(map<string, string>& loginInfo, string& username, string& password)
 {
 	int loginAttempts = 0, maxAttempts = 3;
-	char command;
+	char command = '\0';
 	cout << "Type a command: ";
 
 	do
 	{
-		cin >> command;
+		if (!isValidCommandLength(command))
+		{
+			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
+			continue;
+		}
+
 		if (command == 'L')
 		{
 			cout << endl;
@@ -62,7 +79,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 		}
 		else
 		{
-			cout << "Invalid command! Try again: ";
+			cout << "Invalid command! Please, try again: ";
 		}
 	} while (true);
 }
