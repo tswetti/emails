@@ -5,4 +5,4 @@
 
 using namespace std;
 
-void OpenMail(const string&);
+bool OpenMail(const string&, const int&);

@@ -24,8 +24,8 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 	}
 	
 	PrintMainMenuGuide(mails);
-	char command = '\0';
 	cout << "Type a command: ";
+	char command = '\0';
 
 	do
 	{
@@ -44,6 +44,7 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 			username = "";
 			password = "";
 			cout << endl;
+			cin.ignore();
 			return 1;
 		}
 		else if (command == 'I')
@@ -61,8 +62,12 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 		}
 		else if (command == 'O')
 		{
-			OpenMail(username);
+			if (!OpenMail(username, mails))
+			{
+				cout << "No such mail!" << endl;
+			}
 			cout << endl;
+			cin.ignore();
 			return 2;
 		}
 		else if (command == 'S')
@@ -96,7 +101,7 @@ void PrintMainMenuGuide(const int& mails)
 		<< "S - send" << endl
 		<< "Q - quit" << endl
 		<< endl;
-	cin.ignore();
+	//cin.ignore();
 }
 
 int GetTotalMails(const string& username)

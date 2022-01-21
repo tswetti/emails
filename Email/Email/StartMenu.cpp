@@ -30,7 +30,8 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			{
 				return 1;
 			}
-			cout << endl << "Welcome back, " << username << '!' << endl;
+			cout << endl << "Welcome back, " << username << "!" << endl;
+			cin.ignore();
 			return 0;
 		}
 		else if (command == 'R')
@@ -40,7 +41,8 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			{
 				return 1;
 			}
-			cout << endl << "Welcome, " << username << '!' << endl;
+			cout << endl << "Welcome, " << username << "!" << endl;
+			cin.ignore();
 			return 0;
 		}
 		else if (command == 'Q')

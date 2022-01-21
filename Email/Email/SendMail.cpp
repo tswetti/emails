@@ -10,7 +10,7 @@ using namespace std;
 int SendMail(const string& username, const map<string, string>& users)
 {
 	string recipient, subject, content;
-	getNewMailInfo(recipient, subject, content, users);
+	getNewMailInfo(username, recipient, subject, content, users);
 
 	int recMails = GetTotalMails(recipient);
 
@@ -21,16 +21,23 @@ int SendMail(const string& username, const map<string, string>& users)
 	return 0;
 }
 
-void getNewMailInfo(string& recipient, string& subject, string& content, const map<string, string>& users)
+void getNewMailInfo(const string& sender, string& recipient, string& subject, string& content, const map<string, string>& users)
 {
 	bool match = false;
+	bool sameUser = false;
 	do
 	{
 		cout << "To: ";
 		cin >> recipient;
+		sameUser = false;
 
 		for (auto& pair : users)
 		{
+			if (sender == recipient)
+			{
+				sameUser = true;
+				break;
+			}
 			if (recipient == pair.first)
 			{
 				match = true;
@@ -38,7 +45,11 @@ void getNewMailInfo(string& recipient, string& subject, string& content, const m
 			}
 		}
 
-		if (!match)
+		if (sameUser)
+		{
+			cout << "Can't send mails to yourself!" << endl;
+		}
+		else if (!match)
 		{
 			cout << "No such user!";
 		}

@@ -5,6 +5,12 @@
 #include <string>
 #include <map>
 
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
 using namespace std;
 
 int main()
@@ -21,7 +27,7 @@ int main()
 		int startMenuRes = StartMenuScreen(usersPass, username, password);
 		if (startMenuRes == 1)
 		{
-			break;
+			return 1;
 		}
 
 		mainMenuRes = MainMenu(username, password, usersPass);
@@ -32,6 +38,6 @@ int main()
 		}
 	} while (mainMenuRes == 1);
 
-	cout << endl << "Thanks for using this application!";
+	cout << endl << "Thank you for using this application!";
 	return 0;
 }

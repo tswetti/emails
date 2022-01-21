@@ -26,64 +26,85 @@ bool CloseAccount(const string& username, const string& password, map<string, st
 		return false;
 	}
 
-	if (!DeleteDirectory(username))
+	if (!DeleteDirectory(username) || !RewriteFile(username, password))
 	{
-		cout << "Error while deleting directory.";
+		cout << "An error occured while deleting this user's profile. Please, try closing the account later." << endl;
 		return false;
 	}
 	userInfo.erase(username);
-	RewriteFile(username, password);
 	return true;
+}
+
+bool DeleteAllUserMails(const string& username)
+{
+	int mailsCnt = GetTotalMails(username);
+	string fileName = "";
+	int cnt = 0;
+
+	for (int i = 1; i <= mailsCnt; i++)
+	{
+		fileName = username + "/" + to_string(i) + ".txt";
+		char* currentMail = StringToArray(fileName);
+
+		if (remove(currentMail) != 0)
+		{
+			delete[] currentMail;
+			return false;
+		}
+		delete[] currentMail;
+	}
+	return true;
+}
+
+bool DeleteTotalMailsFile(const string& username)
+{
+	int cnt = 0;
+	string fileName = username + "/totalMails.txt";
+	char* totalMails = StringToArray(fileName);
+
+	if (remove(totalMails) != 0)
+	{
+		delete[] totalMails;
+		return false;
+	}
+	delete[] totalMails;
+	return true;
+}
+
+char* StringToArray(const string& str)
+{
+	char* arr = new char[str.length() + 1];
+	int cnt = 0;
+
+	for (char el : str)
+	{
+		arr[cnt++] = el;
+	}
+	arr[cnt] = '\0';
+	return arr;
 }
 
 bool DeleteDirectory(const string& username)
 {
-	int mailsCnt = GetTotalMails(username);
-	string fileName;
-	int cnt = 0;
-	for (int i = 1; i <= mailsCnt; i++)
+	// the directory has to be empty in order to be deleted
+	if (!DeleteAllUserMails(username) || !DeleteTotalMailsFile(username))
 	{
-		fileName = username + "/" + to_string(i) + ".txt";
-		char file[50] = { };
-		cnt = 0;
-		for (char el : fileName)
-		{
-			file[cnt++] = el;
-		}
-		remove(file);
-	}
-	cnt = 0;
-	fileName = username + "/totalMails.txt";
-	char* fileMeta = new char[fileName.length() + 1];
-	//char fileMeta[50] = { };
-	for (char el : fileName)
-	{
-		fileMeta[cnt++] = el;
-	}
-	fileMeta[cnt] = '\0';
-	remove(fileMeta);
-	delete[] fileMeta;
-
-	//char name[50] = { };
-	char* name = new char[username.length() + 1];
-	cnt = 0;
-	for (char el : username)
-	{
-		name[cnt++] = el;
-	}
-	name[cnt] = '\0';
-
-	if (_rmdir(name) != 0)
-	{
-		delete[] name;
 		return false;
 	}
 
-	delete[] name;
+	char* directoryName = StringToArray(username);
+
+	if (_rmdir(directoryName) != 0)
+	{
+		delete[] directoryName;
+		return false;
+	}
+
+	delete[] directoryName;
 	return true;
 }
 
-void RewriteFile(const string& username, const string& password)
+bool RewriteFile(const string& username, const string& password)
 {
 	fstream users, usersCopy;
 	string buffer = "";
@@ -101,7 +122,10 @@ void RewriteFile(const string& username, const string& password)
 	users.close();
 	usersCopy.close();
 
-	remove("users.txt");
-	rename("usersCopy.txt", "users.txt");
-	remove("usersCopy.txt");
+	if (remove("users.txt") != 0 || rename("usersCopy.txt", "users.txt") != 0)
+	{
+		return false;
+	}
+
+	return true;
 }

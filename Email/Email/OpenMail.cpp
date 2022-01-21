@@ -6,17 +6,24 @@
 
 using namespace std;
 
-void OpenMail(const string& username)
+bool OpenMail(const string& username, const int& mailsCnt)
 {
 	int mail;
 	cout << "Which mail do you want to open? ";
 	cin >> mail;
+	cin.ignore();
+
+	if (mail > mailsCnt)
+	{
+		return false;
+	}
+
 	string fileName = username + "/" + to_string(mail) + ".txt";
 	string buffer = "";
 	fstream mailInfo;
 	mailInfo.open(fileName, fstream::in);
 
-	for (int i = 0;i < 3;i++)
+	for (int i = 0; i < 3; i++)
 	{
 		if (i == 0)
 		{
@@ -36,4 +43,5 @@ void OpenMail(const string& username)
 	}
 
 	mailInfo.close();
+	return true;
 }

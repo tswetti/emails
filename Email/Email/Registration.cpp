@@ -1,5 +1,6 @@
 #include "Registration.h"
 #include "Validation.h"
+#include "CloseAccount.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -40,21 +41,15 @@ bool Registration(map<string, string>& usersInfo, string& username, string& pass
 
 bool CreateDirectory(const string& username)
 {
-	char* name = new char[username.length() + 1];
-	int cnt = 0;
-	for (char el : username)
-	{
-		name[cnt++] = el;
-	}
-	name[cnt] = '\0';
+	char* directoryName = StringToArray(username);
 
-	if (_mkdir(name) != 0)
+	if (_mkdir(directoryName) != 0)
 	{
-		delete[] name;
+		delete[] directoryName;
 		return false;
 	}
 	
-	delete[] name;
+	delete[] directoryName;
 	return true;
 }
 
