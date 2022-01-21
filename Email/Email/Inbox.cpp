@@ -27,7 +27,7 @@ void PrintOneMail(const string& username, const int& mail)
 	fstream mailInfo;
 	mailInfo.open(fileName, fstream::in);
 	string buffer = "";
-	for (int i = 0;i < 2;i++)
+	for (int i = 0; i < 2; i++)
 	{
 		getline(mailInfo, buffer);
 	}

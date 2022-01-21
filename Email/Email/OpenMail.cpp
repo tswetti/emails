@@ -15,6 +15,7 @@ using namespace std;
 void OpenMail(const string& username)
 {
 	int mail;
+	cout << "Which mail do you want to open? ";
 	cin >> mail;
 	string fileName = username + "/" + to_string(mail) + ".txt";
 	string buffer = "";

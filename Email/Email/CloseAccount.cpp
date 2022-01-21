@@ -28,6 +28,7 @@ bool CloseAccount(const string& username, const string& password, map<string, st
 	if (!DeleteDirectory(username))
 	{
 		cout << "Error while deleting directory.";
+		return false;
 	}
 	userInfo.erase(username);
 	RewriteFile(username, password);

@@ -18,7 +18,7 @@ int SendMail(const string& username, const map<string, string>& users)
 
 	int recMails = GetTotalMails(recipient);
 
-	NewMailToMailCnt(username, recipient);
+	NewMailNotification(username, recipient);
 	
 	AddNewMailInfo(username, recipient, recMails, subject, content);
 
@@ -55,7 +55,7 @@ void getNewMailInfo(string& recipient, string& subject, string& content, const m
 	getline(cin, content);
 }
 
-void NewMailToMailCnt(const string& username, const string& recipient)
+void NewMailNotification(const string& username, const string& recipient)
 {
 	string recFileName = recipient + "/totalMails.txt";
 	fstream newMail;

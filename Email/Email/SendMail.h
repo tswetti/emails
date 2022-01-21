@@ -8,5 +8,5 @@ using namespace std;
 
 int SendMail(const string&, const map<string, string>&);
 void getNewMailInfo(string&, string&, string&, const map<string, string>&);
-void NewMailToMailCnt(const string&, const string&);
+void NewMailNotification(const string&, const string&);
 void AddNewMailInfo(const string&, const string&, int&, const string&, const string&);

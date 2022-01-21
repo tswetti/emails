@@ -42,6 +42,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			{
 				return 1;
 			}
+			cout << endl << "Welcome back, " << username << '!' << endl;
 			return 2;
 		}
 		else if (command == 'R')
@@ -51,7 +52,8 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			{
 				return 1;
 			}
-			return 3;
+			cout << endl << "Welcome, " << username << '!' << endl;
+			return 2;
 		}
 		else if (command == 'Q')
 		{
@@ -116,7 +118,12 @@ void ValidateUsersFile()
 		}
 		for (char el : buffer)
 		{
-			if (el != '&' && el != '*' && el != '<' && el != '>' && el != '?' && el != '.' && el != '+' && el != '-' && ((el < 65 || el > 122) || (el > 90 && el < 97)) && (el<48 || el>57))
+			if (
+				el != '&' && el != '*' && el != '<' && el != '>' && el != '?' && el != '.' && el != '+' && el != '-' && 
+				((el < 65 || el > 122) || 
+				(el > 90 && el < 97)) && 
+				(el < 48 || el > 57)
+				)
 			{
 				if (el == ':')
 				{
