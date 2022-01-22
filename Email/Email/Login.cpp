@@ -1,27 +1,37 @@
 #include "Login.h"
-#include "Validation.h"
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <map>
-#include <unordered_map>
+#include <unordered_map>	// used for hashing
 
 using namespace std;
 
-bool isLoggedIn(const map<string, string>& userInfo, string& username, string& password)
+bool isSuccessfulLogin(const map<string, string>& userInfo, string& username, string& password)
 {
 	const int MAX_ATTEMPTS = 3;
+	hash<string> passHash;
+
 	for (int i = 0; i < MAX_ATTEMPTS; i++)
 	{
 		cout << "Type your username: ";
 		cin >> username;
+
+		if (username == "Q" || username == "q")
+		{
+			return false;
+		}
+
 		cout << "Type your password: ";
 		cin >> password;
 
-		hash<string> passHash;
+		if (password == "Q" || password == "q")
+		{
+			return false;
+		}
+
 		password = to_string(passHash(password));
 
-		for (auto& pair : userInfo)
+		for (auto pair : userInfo)
 		{
 			if (pair.first == username && pair.second == password)
 			{
@@ -30,9 +40,8 @@ bool isLoggedIn(const map<string, string>& userInfo, string& username, string& p
 			}
 		}
 		cout << "Unsuccessful login." << endl;
-		username = "";
-		password = "";
 	}
+
 	cout << "Your username or password was wrong 3 times. Please, try logging in later." << endl;
 	return false;
 }

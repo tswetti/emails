@@ -1,5 +1,6 @@
 #include "CloseAccount.h"
 #include "MainMenu.h"
+#include "StartMenu.h"
 #include "Validation.h"
 #include <iostream>
 #include <fstream>
@@ -11,7 +12,7 @@
 
 using namespace std;
 
-bool CloseAccount(const string& username, const string& password, map<string, string>& userInfo)
+bool CloseAccount(const string& username, const string& password, int& mails, map<string, string>& userInfo)
 {
 	string inputPass;
 	cout << "Are you sure you want to delete your account? Enter your password to continue: ";
@@ -26,7 +27,7 @@ bool CloseAccount(const string& username, const string& password, map<string, st
 		return false;
 	}
 
-	if (!DeleteDirectory(username) || !RewriteFile(username, password))
+	if (!DeleteDirectory(username, mails) || !RewriteFile(username, password))
 	{
 		cout << "An error occured while deleting this user's profile. Please, try closing the account later." << endl;
 		return false;
@@ -35,7 +36,7 @@ bool CloseAccount(const string& username, const string& password, map<string, st
 	return true;
 }
 
-bool DeleteAllUserMails(const string& username)
+bool DeleteAllUserMails(const string& username, int& mails)
 {
 	int mailsCnt = GetTotalMails(username);
 	string fileName = "";
@@ -53,6 +54,7 @@ bool DeleteAllUserMails(const string& username)
 		}
 		delete[] currentMail;
 	}
+	mails = 0;
 	return true;
 }
 
@@ -71,23 +73,10 @@ bool DeleteTotalMailsFile(const string& username)
 	return true;
 }
 
-char* StringToArray(const string& str)
-{
-	char* arr = new char[str.length() + 1];
-	int cnt = 0;
-
-	for (char el : str)
-	{
-		arr[cnt++] = el;
-	}
-	arr[cnt] = '\0';
-	return arr;
-}
-
-bool DeleteDirectory(const string& username)
+bool DeleteDirectory(const string& username, int& mails)
 {
 	// the directory has to be empty in order to be deleted
-	if (!DeleteAllUserMails(username) || !DeleteTotalMailsFile(username))
+	if (!DeleteAllUserMails(username, mails) || !DeleteTotalMailsFile(username))
 	{
 		return false;
 	}

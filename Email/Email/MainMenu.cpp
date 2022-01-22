@@ -7,25 +7,26 @@
 #include "Validation.h"
 #include <iostream>
 #include <fstream>
-#include <cstdio>
 #include <string>
 #include <map>
-#include <unordered_map>
-#include <direct.h>
 
 using namespace std;
 
 int MainMenu(string& username, string& password, map<string, string>& userInfo)
 {
+	const char	CLOSE_UPPER = 'C', CLOSE_LOWER = 'c',
+				INBOX_UPPER = 'I', INBOX_LOWER = 'i',
+				LOG_OFF_UPPER = 'L', LOG_OFF_LOWER = 'l',
+				OPEN_UPPER = 'O', OPEN_LOWER = 'o',
+				SEND_UPPER = 'S', SEND_LOWER = 's',
+				QUIT_UPPER = 'Q', QUIT_LOWER = 'q';
+
 	int mails = GetTotalMails(username);
-	if (mails == -1)
-	{
-		return 0;
-	}
-	
+
 	PrintMainMenuGuide(mails);
+
 	cout << "Type a command: ";
-	char command = '\0';
+	char command;
 
 	do
 	{
@@ -35,62 +36,69 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 			continue;
 		}
 
-		if (command == 'C' || command=='c')
+		if (command == CLOSE_UPPER || command == CLOSE_LOWER)
 		{
-			if (CloseAccount(username, password, userInfo) == false)
+			if (!CloseAccount(username, password, mails, userInfo))
 			{
-				return 0;
+				return 1;
 			}
-			username = "";
-			password = "";
+
 			cout << endl;
 			cin.ignore();
-			return 1;
+			return 0;
 		}
-		else if (command == 'I' || command =='i')
+		else if (command == INBOX_UPPER || command == INBOX_LOWER)
 		{
 			PrintMailsSubject(username, mails);
 			cout << endl;
-			if (goToMainMenu())
+
+			if (!goToMainMenu())
 			{
-				return 2;
+				return 1;
 			}
-			return 0;
+			return 2;
 		}
-		else if (command == 'L' || command=='l')
+		else if (command == LOG_OFF_UPPER || command == LOG_OFF_LOWER)
 		{
 			username = "";
 			password = "";
-			cout << "You logged out successfully!" << endl;
-			return 1;
+			cout << "You logged out successfully!" << endl << endl;
+			return 0;
 		}
-		else if (command == 'O' || command =='o')
+		else if (command == OPEN_UPPER || command == OPEN_LOWER)
 		{
 			if (!OpenMail(username, mails))
 			{
 				cout << "No such mail!" << endl;
 			}
+
 			cout << endl;
 			cin.ignore();
-			if (goToMainMenu())
+
+			if (!goToMainMenu())
 			{
-				return 2;
+				return 1;
 			}
-			return 0;
+			return 2;
 		}
-		else if (command == 'S' || command=='s')
+		else if (command == SEND_UPPER || command == SEND_LOWER)
 		{
-			int sendRes = SendMail(username, userInfo);
-			cout << "Message sent successfully!" << endl;
-			if (goToMainMenu())
+			if (!isSentMail(username, userInfo))
 			{
-				return 2;
+				return 1;
 			}
-			return 0;
+
+			cout << endl;
+
+			if (!goToMainMenu())
+			{
+				return 1;
+			}
+			return 2;
 		}
-		else if (command == 'Q' || command=='q')
+		else if (command == QUIT_UPPER || command == QUIT_LOWER)
 		{
-			return 0;
+			return 1;
 		}
 		else
 		{
@@ -98,7 +106,7 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 		}
 	} while (true);
 
-	return 0;
+	return 1;
 }
 
 void PrintMainMenuGuide(const int& mails)
@@ -117,21 +125,13 @@ void PrintMainMenuGuide(const int& mails)
 
 int GetTotalMails(const string& username)
 {
-	fstream totalMails;
 	string fileName = username + "/totalMails.txt";
 	string buffer = "";
 	int cnt = 0;
-	totalMails.open(fileName, fstream::out | fstream::app);
 
-	if (!totalMails.is_open())
-	{
-		cout << "Error loading mails count. Please, try again later.";
-		return -1;
-	}
+	fstream totalMails;
+	totalMails.open(fileName);
 
-	totalMails.close();
-
-	totalMails.open(fileName, fstream::in);
 	while (getline(totalMails, buffer))
 	{
 		cnt++;
@@ -139,4 +139,36 @@ int GetTotalMails(const string& username)
 
 	totalMails.close();
 	return cnt;
+}
+
+bool goToMainMenu()
+{
+	const char	MENU_UPPER = 'M', MENU_LOWER = 'm',
+				QUIT_UPPER = 'Q', QUIT_LOWER = 'q';
+	char command;
+
+	cout << "Press <M> to go back to the menu or <Q> to quit." << endl;
+	do
+	{
+		if (!isValidCommandLength(command))
+		{
+			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
+			continue;
+		}
+
+		if (command == MENU_UPPER || command == MENU_LOWER)
+		{
+			return true;
+		}
+		else if (command == QUIT_UPPER || command == QUIT_LOWER)
+		{
+			return false;
+		}
+		else
+		{
+			cout << "Invalid command! Please, try again: ";
+		}
+	} while (true);
+
+	return false;
 }

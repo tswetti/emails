@@ -16,7 +16,8 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 				QUIT_UPPER = 'Q', QUIT_LOWER = 'q';
 
 	printStartMenuGuide();
-	char command = '\0';
+
+	char command;
 	cout << "Type a command: ";
 
 	do
@@ -30,7 +31,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 		if (command == LOG_UPPER || command == LOG_LOWER)
 		{
 			cout << endl;
-			if (!isLoggedIn(loginInfo, username, password))
+			if (!isSuccessfulLogin(loginInfo, username, password))
 			{
 				return 1;
 			}
@@ -41,7 +42,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 		else if (command == REG_UPPER || command == REG_LOWER)
 		{
 			cout << endl;
-			if (!Registration(loginInfo, username, password))
+			if (!isSuccessfulRegistration(loginInfo, username, password))
 			{
 				return 1;
 			}
@@ -57,24 +58,8 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 		{
 			cout << "Invalid command! Please, try again: ";
 		}
-	} while (true);
-}
-
-void UsersInfoToMap(map<string, string>& info)
-{
-	string key, value, buffer, fileName = "users.txt";
-	const char DELIMITER = ':';
-
-	fstream usersInfo;
-	usersInfo.open(fileName, fstream::in);
-
-	while (getline(usersInfo, buffer))
-	{
-		key = buffer.substr(0, buffer.find(DELIMITER));
-		value = buffer.substr(buffer.find(DELIMITER) + 1);
-		info.insert(pair<string, string>(key, value));
 	}
-	usersInfo.close();
+	while (true);
 }
 
 void printStartMenuGuide()
@@ -86,34 +71,32 @@ void printStartMenuGuide()
 		<< endl;
 }
 
-bool goToMainMenu()
+void UsersInfoToMap(map<string, string>& info)
 {
-	const char	MENU_UPPER = 'M', MENU_LOWER = 'm',
-				QUIT_UPPER = 'Q', QUIT_LOWER = 'q';
-	char command;
+	string key, value, buffer, fileName = "users.txt";
+	const char DELIMITER = ':';
 
-	cout << "Press <M> to go back to the menu or <Q> to quit." << endl;
-	do
+	ifstream usersInfo;
+	usersInfo.open(fileName);
+
+	while (getline(usersInfo, buffer))
 	{
-		if (!isValidCommandLength(command))
-		{
-			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
-			continue;
-		}
+		key = buffer.substr(0, buffer.find(DELIMITER));
+		value = buffer.substr(buffer.find(DELIMITER) + 1);
+		info.insert(pair<string, string>(key, value));
+	}
+	usersInfo.close();
+}
 
-		if (command == MENU_UPPER || command == MENU_LOWER)
-		{
-			return true;
-		}
-		else if (command == QUIT_UPPER || command == QUIT_LOWER)
-		{
-			return false;
-		}
-		else
-		{
-			cout << "Invalid command! Please, try again: ";
-		}
-	} while (true);
+char* StringToArray(const string& str)
+{
+	char* arr = new char[str.length() + 1];
+	int cnt = 0;
 
-	return false;
+	for (char el : str)
+	{
+		arr[cnt++] = el;
+	}
+	arr[cnt] = '\0';
+	return arr;
 }

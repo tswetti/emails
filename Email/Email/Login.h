@@ -6,4 +6,4 @@
 
 using namespace std;
 
-bool isLoggedIn(const map<string, string>&, string&, string&);
+bool isSuccessfulLogin(const map<string, string>&, string&, string&);

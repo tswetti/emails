@@ -8,28 +8,40 @@
 
 using namespace std;
 
-int SendMail(const string& username, const map<string, string>& users)
+bool isSentMail(const string& username, const map<string, string>& users)
 {
 	string recipient, subject, content;
-	getNewMailInfo(username, recipient, subject, content, users);
+
+	if (!getNewMailInfo(username, recipient, subject, content, users))
+	{
+		return false;
+	}
 
 	int recMails = GetTotalMails(recipient);
 
-	NewMailNotification(username, recipient);
-	
 	AddNewMailInfo(username, recipient, recMails, subject, content);
 
-	return 0;
+	NewMailNotification(username, recipient);
+
+	cout << "Message sent successfully!" << endl;
+	return true;
 }
 
-void getNewMailInfo(const string& sender, string& recipient, string& subject, string& content, const map<string, string>& users)
+bool getNewMailInfo(const string& sender, string& recipient, string& subject, string& content, const map<string, string>& users)
 {
 	bool match = false;
 	bool sameUser = false;
+
 	do
 	{
 		cout << "To: ";
 		cin >> recipient;
+
+		if (recipient == "Q" || recipient == "q")
+		{
+			return false;
+		}
+
 		cin.ignore();
 		sameUser = false;
 
@@ -53,9 +65,10 @@ void getNewMailInfo(const string& sender, string& recipient, string& subject, st
 		}
 		else if (!match)
 		{
-			cout << "No such user!";
+			cout << "No such user!" << endl;
 		}
-	} while (!match);
+	}
+	while (!match);
 
 	do
 	{
@@ -66,25 +79,35 @@ void getNewMailInfo(const string& sender, string& recipient, string& subject, st
 		{
 			cout << "Subject can't be empty or have invalid characters!" << endl;
 		}
-	} while (subject.empty() || !isValidStrInput(subject));
+	}
+	while (subject.empty() || !isValidStrInput(subject));
+
 	cout << "Content: ";
 	getline(cin, content);
+
+	return true;
 }
 
 void NewMailNotification(const string& username, const string& recipient)
 {
 	string recFileName = recipient + "/totalMails.txt";
-	fstream newMail;
-	newMail.open(recFileName, fstream::out | fstream::app);
+
+	ofstream newMail;
+	newMail.open(recFileName, fstream::app);
+
 	newMail << "New mail from " << username << "!" << endl;
+
 	newMail.close();
 }
 
 void AddNewMailInfo(const string& username, const string& recipient, int& mails, const string& subject, const string& content)
 {
-	fstream newMailInfo;
 	string recFileName = recipient + "/" + to_string(++mails) + ".txt";
-	newMailInfo.open(recFileName, fstream::out);
+
+	ofstream newMailInfo;
+	newMailInfo.open(recFileName);
+
 	newMailInfo << username << endl << subject << endl << content << endl;
+
 	newMailInfo.close();
 }

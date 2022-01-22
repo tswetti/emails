@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int SendMail(const string&, const map<string, string>&);
-void getNewMailInfo(const string&, string&, string&, string&, const map<string, string>&);
+bool isSentMail(const string&, const map<string, string>&);
+bool getNewMailInfo(const string&, string&, string&, string&, const map<string, string>&);
 void NewMailNotification(const string&, const string&);
 void AddNewMailInfo(const string&, const string&, int&, const string&, const string&);

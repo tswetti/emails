@@ -4,24 +4,28 @@
 #include <string>
 #include <map>
 #include <unordered_map>
+#include <cstdio>	// used by remove and rename functions
 
 using namespace std;
 
-void ValidateUsersFile()
+bool isValidUsersFile()
 {
-	fstream users;
-	users.open("users.txt", fstream::in);
-	fstream usersCopy;
+	fstream users, usersCopy;
+	users.open("users.txt", fstream::in | fstream::out | fstream::app);
 	usersCopy.open("usersCopy.txt", fstream::out);
+
 	string buffer = "";
 	int colonCnt = 0;
+	bool isValid = true;
+
 	while (getline(users, buffer))
 	{
 		colonCnt = 0;
-		if (buffer == "")
+		if (buffer.empty())
 		{
 			continue;
 		}
+
 		for (char el : buffer)
 		{
 			if (!isLowercaseLetter(el) && !isUppercaseLetter(el) && !isDigit(el) && !isAllowedSpecialSymbol(el))
@@ -32,11 +36,13 @@ void ValidateUsersFile()
 				}
 				else
 				{
-					continue;
+					isValid = false;
+					break;
 				}
 			}
 		}
-		if (colonCnt == 1)
+
+		if (isValid && colonCnt == 1)
 		{
 			usersCopy << buffer << endl;
 		}
@@ -44,19 +50,23 @@ void ValidateUsersFile()
 	users.close();
 	usersCopy.close();
 
-	remove("users.txt");
-	rename("usersCopy.txt", "users.txt");
-	remove("usersCopy.txt");
+	if (remove("users.txt") != 0 || rename("usersCopy.txt", "users.txt") != 0)
+	{
+		return false;
+	}
+	return true;
 }
 
 bool isValidCommandLength(char& command)
 {
 	string commandStr = "";
 	getline(cin, commandStr);
+
 	if (commandStr.length() != 1)
 	{
 		return false;
 	}
+
 	command = commandStr[0];
 	return true;
 }
@@ -91,17 +101,13 @@ bool isAllowedSpecialSymbol(const char& symbol)
 
 bool isValidStrInput(const string& str)
 {
-	int length = str.length();
-	char* arr = new char[length + 1];
-	for (int i = 0;i <= length;i++)
+	for (char el : str)
 	{
-		if (!isLowercaseLetter(arr[i]) && !isUppercaseLetter(arr[i]) && !isDigit(arr[i]) && !isAllowedSpecialSymbol(arr[i]))
+		if (!isLowercaseLetter(el) && !isUppercaseLetter(el) && !isDigit(el) && !isAllowedSpecialSymbol(el))
 		{
-			delete[] arr;
 			return false;
 		}
 	}
-	delete[] arr;
 	return true;
 }
 
@@ -109,6 +115,7 @@ bool isValidPassword(const string& password)
 {
 	if (password.length() < 6)
 	{
+		cout << "The password must be 6 characters or more." << endl;
 		return false;
 	}
 
@@ -135,6 +142,7 @@ bool isValidPassword(const string& password)
 		{
 			if (!isAllowedSpecialSymbol(el))
 			{
+				cout << "The password must have at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 symbol (&*<>?.+-)." << endl;
 				return false;
 			}
 			hasSymbol = true;
@@ -145,6 +153,7 @@ bool isValidPassword(const string& password)
 	{
 		return true;
 	}
+	cout << "The password must have at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 symbol (&*<>?.+-)." << endl;
 	return false;
 }
 
@@ -165,11 +174,11 @@ bool isValidUsername(const map<string, string>& usersInfo, const string& usernam
 		}
 	}
 
-	for (auto& pair : usersInfo)
+	for (auto pair : usersInfo)
 	{
 		if (pair.first == username)
 		{
-			cout << "The username is taken." << endl;
+			cout << "This username is taken." << endl;
 			return false;
 		}
 	}

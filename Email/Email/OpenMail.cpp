@@ -8,7 +8,9 @@ using namespace std;
 
 bool OpenMail(const string& username, const int& mailsCnt)
 {
+	const int SENDER_LINE = 0, SUBJECT_LINE = 1, CONTENT_LINE = 2;
 	int mail;
+
 	cout << "Which mail do you want to open? ";
 	cin >> mail;
 	//cin.ignore();
@@ -20,22 +22,24 @@ bool OpenMail(const string& username, const int& mailsCnt)
 
 	string fileName = username + "/" + to_string(mail) + ".txt";
 	string buffer = "";
-	fstream mailInfo;
-	mailInfo.open(fileName, fstream::in);
 
-	for (int i = 0; i < 3; i++)
+	ifstream mailInfo;
+	mailInfo.open(fileName);
+
+	cout << endl;
+	for (int i = 0; i < CONTENT_LINE + 1; i++)
 	{
-		if (i == 0)
+		if (i == SENDER_LINE)
 		{
 			getline(mailInfo, buffer);
 			cout << "From: " << buffer << endl;
 		}
-		if (i == 1)
+		if (i == SUBJECT_LINE)
 		{
 			getline(mailInfo, buffer);
 			cout << "Subject: " << buffer << endl;
 		}
-		if (i == 2)
+		if (i == CONTENT_LINE)
 		{
 			getline(mailInfo, buffer);
 			cout << "Content: " << buffer << endl;

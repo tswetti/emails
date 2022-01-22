@@ -1,20 +1,25 @@
 #include "Registration.h"
 #include "Validation.h"
-#include "CloseAccount.h"
+#include "StartMenu.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <unordered_map>
-#include <direct.h>
+#include <unordered_map>	// used for hashing
+#include <direct.h>			// used for creating directories
 
 using namespace std;
 
-bool Registration(map<string, string>& usersInfo, string& username, string& password)
+bool isSuccessfulRegistration(map<string, string>& usersInfo, string& username, string& password)
 {
 	do
 	{
 		cout << "Type a username: ";
 		cin >> username;
+
+		if (username == "Q" || username == "q")
+		{
+			return false;
+		}
 	}
 	while (!isValidUsername(usersInfo, username));
 
@@ -22,7 +27,13 @@ bool Registration(map<string, string>& usersInfo, string& username, string& pass
 	{
 		cout << "Type a password: ";
 		cin >> password;
-	} while (!isValidPassword(password));
+
+		if (password == "Q" || password == "q")
+		{
+			return false;
+		}
+	}
+	while (!isValidPassword(password));
 
 	hash<string> passHash;
 	password = to_string(passHash(password));
@@ -30,13 +41,13 @@ bool Registration(map<string, string>& usersInfo, string& username, string& pass
 	if (!CreateDirectory(username))
 	{
 		cout << "Unable to create a directory. Registration failed." << endl;
-		return 0;
+		return false;
 	}
 
 	SaveNewUser(usersInfo, username, password);
 
 	cout << "Successful registration!" << endl;
-	return 1;
+	return true;
 }
 
 bool CreateDirectory(const string& username)
@@ -55,8 +66,8 @@ bool CreateDirectory(const string& username)
 
 void SaveNewUser(map<string, string>& usersInfo, const string& username, const string& password)
 {
-	fstream users;
-	users.open("users.txt", fstream::out | fstream::app);
+	ofstream users;
+	users.open("users.txt", fstream::app);
 	users << username << ':' << password << endl;
 	users.close();
 

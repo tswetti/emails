@@ -3,7 +3,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <map>
 
 using namespace std;
 
@@ -14,6 +13,7 @@ void PrintMailsSubject(const string& username, const int& mails)
 		cout << "You have no mails!" << endl;
 		return;
 	}
+
 	for (int i = 1; i <= mails; i++)
 	{
 		PrintOneMail(username, i);
@@ -23,11 +23,14 @@ void PrintMailsSubject(const string& username, const int& mails)
 
 void PrintOneMail(const string& username, const int& mail)
 {
+	const int SUBJECT_LINE = 2;
 	string fileName = username + "/" + to_string(mail) + ".txt";
-	fstream mailInfo;
-	mailInfo.open(fileName, fstream::in);
 	string buffer = "";
-	for (int i = 0; i < 2; i++)
+
+	ifstream mailInfo;
+	mailInfo.open(fileName);
+
+	for (int i = 0; i < SUBJECT_LINE; i++)
 	{
 		getline(mailInfo, buffer);
 	}
