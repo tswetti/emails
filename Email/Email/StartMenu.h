@@ -9,3 +9,4 @@ using namespace std;
 void UsersInfoToMap(map<string, string>&);
 int StartMenuScreen(map<string, string>&, string&, string&);
 void printStartMenuGuide();
+bool goToMainMenu();

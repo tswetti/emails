@@ -35,7 +35,7 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 			continue;
 		}
 
-		if (command == 'C')
+		if (command == 'C' || command=='c')
 		{
 			if (CloseAccount(username, password, userInfo) == false)
 			{
@@ -47,20 +47,24 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 			cin.ignore();
 			return 1;
 		}
-		else if (command == 'I')
+		else if (command == 'I' || command =='i')
 		{
 			PrintMailsSubject(username, mails);
 			cout << endl;
-			return 2;
+			if (goToMainMenu())
+			{
+				return 2;
+			}
+			return 0;
 		}
-		else if (command == 'L')
+		else if (command == 'L' || command=='l')
 		{
 			username = "";
 			password = "";
-			cout << endl;
+			cout << "You logged out successfully!" << endl;
 			return 1;
 		}
-		else if (command == 'O')
+		else if (command == 'O' || command =='o')
 		{
 			if (!OpenMail(username, mails))
 			{
@@ -68,15 +72,23 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 			}
 			cout << endl;
 			cin.ignore();
-			return 2;
+			if (goToMainMenu())
+			{
+				return 2;
+			}
+			return 0;
 		}
-		else if (command == 'S')
+		else if (command == 'S' || command=='s')
 		{
-			SendMail(username, userInfo);
-			cout << endl;
-			return 2;
+			int sendRes = SendMail(username, userInfo);
+			cout << "Message sent successfully!" << endl;
+			if (goToMainMenu())
+			{
+				return 2;
+			}
+			return 0;
 		}
-		else if (command == 'Q')
+		else if (command == 'Q' || command=='q')
 		{
 			return 0;
 		}
@@ -101,7 +113,6 @@ void PrintMainMenuGuide(const int& mails)
 		<< "S - send" << endl
 		<< "Q - quit" << endl
 		<< endl;
-	//cin.ignore();
 }
 
 int GetTotalMails(const string& username)

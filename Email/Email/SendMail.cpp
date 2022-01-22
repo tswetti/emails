@@ -1,5 +1,6 @@
 #include "SendMail.h"
 #include "MainMenu.h"
+#include "Validation.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -29,6 +30,7 @@ void getNewMailInfo(const string& sender, string& recipient, string& subject, st
 	{
 		cout << "To: ";
 		cin >> recipient;
+		cin.ignore();
 		sameUser = false;
 
 		for (auto& pair : users)
@@ -55,9 +57,16 @@ void getNewMailInfo(const string& sender, string& recipient, string& subject, st
 		}
 	} while (!match);
 
-	cout << "Subject: ";
-	cin.ignore();
-	getline(cin, subject);
+	do
+	{
+		cout << "Subject: ";
+		getline(cin, subject);
+
+		if (subject.empty() || !isValidStrInput(subject))
+		{
+			cout << "Subject can't be empty or have invalid characters!" << endl;
+		}
+	} while (subject.empty() || !isValidStrInput(subject));
 	cout << "Content: ";
 	getline(cin, content);
 }

@@ -33,7 +33,7 @@ int main()
 		mainMenuRes = MainMenu(username, password, usersPass);
 		while (mainMenuRes == 2)
 		{
-			cout << "You are back to the main menu!" << endl;
+			cout << endl << "You are back to the main menu!" << endl;
 			mainMenuRes = MainMenu(username, password, usersPass);
 		}
 	} while (mainMenuRes == 1);

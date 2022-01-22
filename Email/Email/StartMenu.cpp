@@ -23,7 +23,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			continue;
 		}
 
-		if (command == 'L')
+		if (command == 'L' || command =='l')
 		{
 			cout << endl;
 			if (!isLoggedIn(loginInfo, username, password))
@@ -34,7 +34,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			cin.ignore();
 			return 0;
 		}
-		else if (command == 'R')
+		else if (command == 'R' || command=='r')
 		{
 			cout << endl;
 			if (!Registration(loginInfo, username, password))
@@ -45,7 +45,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			cin.ignore();
 			return 0;
 		}
-		else if (command == 'Q')
+		else if (command == 'Q' || command=='q')
 		{
 			return 1;
 		}
@@ -80,4 +80,32 @@ void printStartMenuGuide()
 		<< "R - register" << endl
 		<< "Q - quit" << endl
 		<< endl;
+}
+
+bool goToMainMenu()
+{
+	char command;
+	cout << "Press <M> to go back to the menu or <Q> to quit." << endl;
+	do
+	{
+		if (!isValidCommandLength(command))
+		{
+			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
+			continue;
+		}
+
+		if (command == 'M' || command == 'm')
+		{
+			return true;
+		}
+		else if (command == 'Q' || command == 'q')
+		{
+			return false;
+		}
+		else
+		{
+			cout << "Invalid command! Please, try again: ";
+		}
+	} while (true);
+	return false;
 }

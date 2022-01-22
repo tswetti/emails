@@ -89,6 +89,22 @@ bool isAllowedSpecialSymbol(const char& symbol)
 	return false;
 }
 
+bool isValidStrInput(const string& str)
+{
+	int length = str.length();
+	char* arr = new char[length + 1];
+	for (int i = 0;i <= length;i++)
+	{
+		if (!isLowercaseLetter(arr[i]) && !isUppercaseLetter(arr[i]) && !isDigit(arr[i]) && !isAllowedSpecialSymbol(arr[i]))
+		{
+			delete[] arr;
+			return false;
+		}
+	}
+	delete[] arr;
+	return true;
+}
+
 bool isValidPassword(const string& password)
 {
 	if (password.length() < 6)
