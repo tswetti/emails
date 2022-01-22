@@ -11,6 +11,10 @@ using namespace std;
 
 int StartMenuScreen(map<string, string>& loginInfo, string& username, string& password)
 {
+	const char	LOG_UPPER = 'L', LOG_LOWER = 'l',
+				REG_UPPER = 'R', REG_LOWER = 'r',
+				QUIT_UPPER = 'Q', QUIT_LOWER = 'q';
+
 	printStartMenuGuide();
 	char command = '\0';
 	cout << "Type a command: ";
@@ -23,7 +27,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			continue;
 		}
 
-		if (command == 'L' || command =='l')
+		if (command == LOG_UPPER || command == LOG_LOWER)
 		{
 			cout << endl;
 			if (!isLoggedIn(loginInfo, username, password))
@@ -34,7 +38,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			cin.ignore();
 			return 0;
 		}
-		else if (command == 'R' || command=='r')
+		else if (command == REG_UPPER || command == REG_LOWER)
 		{
 			cout << endl;
 			if (!Registration(loginInfo, username, password))
@@ -45,7 +49,7 @@ int StartMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 			cin.ignore();
 			return 0;
 		}
-		else if (command == 'Q' || command=='q')
+		else if (command == QUIT_UPPER || command == QUIT_LOWER)
 		{
 			return 1;
 		}
@@ -84,7 +88,10 @@ void printStartMenuGuide()
 
 bool goToMainMenu()
 {
+	const char	MENU_UPPER = 'M', MENU_LOWER = 'm',
+				QUIT_UPPER = 'Q', QUIT_LOWER = 'q';
 	char command;
+
 	cout << "Press <M> to go back to the menu or <Q> to quit." << endl;
 	do
 	{
@@ -94,11 +101,11 @@ bool goToMainMenu()
 			continue;
 		}
 
-		if (command == 'M' || command == 'm')
+		if (command == MENU_UPPER || command == MENU_LOWER)
 		{
 			return true;
 		}
-		else if (command == 'Q' || command == 'q')
+		else if (command == QUIT_UPPER || command == QUIT_LOWER)
 		{
 			return false;
 		}
@@ -107,5 +114,6 @@ bool goToMainMenu()
 			cout << "Invalid command! Please, try again: ";
 		}
 	} while (true);
+
 	return false;
 }
