@@ -61,7 +61,7 @@ bool getNewMailInfo(const string& sender, string& recipient, string& subject, st
 
 		if (sameUser)
 		{
-			cout << "Can't send mails to yourself!" << endl;
+			cout << "Sender and recipient cannot be the same person!" << endl;
 		}
 		else if (!match)
 		{
@@ -88,6 +88,7 @@ bool getNewMailInfo(const string& sender, string& recipient, string& subject, st
 	return true;
 }
 
+// update the recipients log file that they received a new mail
 void NewMailNotification(const string& username, const string& recipient)
 {
 	string recFileName = recipient + "/totalMails.txt";
@@ -100,6 +101,7 @@ void NewMailNotification(const string& username, const string& recipient)
 	newMail.close();
 }
 
+// add the new mail to the recipient's directory
 void AddNewMailInfo(const string& username, const string& recipient, int& mails, const string& subject, const string& content)
 {
 	string recFileName = recipient + "/" + to_string(++mails) + ".txt";

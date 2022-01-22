@@ -32,44 +32,10 @@ bool CloseAccount(const string& username, const string& password, int& mails, ma
 		cout << "An error occured while deleting this user's profile. Please, try closing the account later." << endl;
 		return false;
 	}
+
 	userInfo.erase(username);
-	return true;
-}
 
-bool DeleteAllUserMails(const string& username, int& mails)
-{
-	int mailsCnt = GetTotalMails(username);
-	string fileName = "";
-	int cnt = 0;
-
-	for (int i = 1; i <= mailsCnt; i++)
-	{
-		fileName = username + "/" + to_string(i) + ".txt";
-		char* currentMail = StringToArray(fileName);
-
-		if (remove(currentMail) != 0)
-		{
-			delete[] currentMail;
-			return false;
-		}
-		delete[] currentMail;
-	}
-	mails = 0;
-	return true;
-}
-
-bool DeleteTotalMailsFile(const string& username)
-{
-	int cnt = 0;
-	string fileName = username + "/totalMails.txt";
-	char* totalMails = StringToArray(fileName);
-
-	if (remove(totalMails) != 0)
-	{
-		delete[] totalMails;
-		return false;
-	}
-	delete[] totalMails;
+	cout << "Profile deleted successfully!" << endl;
 	return true;
 }
 
@@ -93,13 +59,52 @@ bool DeleteDirectory(const string& username, int& mails)
 	return true;
 }
 
+
+bool DeleteAllUserMails(const string& username, int& mails)
+{
+	string fileName = "";
+	int cnt = 0;
+
+	for (int i = 1; i <= mails; i++)
+	{
+		fileName = username + "/" + to_string(i) + ".txt";
+		char* currentMail = StringToArray(fileName);	// the remove function accepts only char arrays
+
+		if (remove(currentMail) != 0)
+		{
+			delete[] currentMail;
+			return false;
+		}
+		delete[] currentMail;
+	}
+	mails = 0;
+	return true;
+}
+
+bool DeleteTotalMailsFile(const string& username)
+{
+	int cnt = 0;
+	string fileName = username + "/totalMails.txt";
+	char* totalMails = StringToArray(fileName);			// the remove function accepts only char arrays
+
+	if (remove(totalMails) != 0)
+	{
+		delete[] totalMails;
+		return false;
+	}
+	delete[] totalMails;
+	return true;
+}
+
 bool RewriteFile(const string& username, const string& password)
 {
-	fstream users, usersCopy;
 	string buffer = "";
+
+	fstream users, usersCopy;
 	users.open("users.txt", fstream::in);
 	usersCopy.open("usersCopy.txt", fstream::out | fstream::app);
 
+	// rewrite the file with all info except this user's
 	while (getline(users, buffer))
 	{
 		if (buffer != (username + ':' + password))

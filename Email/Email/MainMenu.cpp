@@ -130,8 +130,9 @@ int GetTotalMails(const string& username)
 	int cnt = 0;
 
 	fstream totalMails;
-	totalMails.open(fileName);
+	totalMails.open(fileName, fstream::in | fstream:: out | fstream::app);
 
+	// every time a mail is sent, a new line is added to the totalMails file, thus the lines count is equal to the mails count
 	while (getline(totalMails, buffer))
 	{
 		cnt++;
@@ -148,6 +149,7 @@ bool goToMainMenu()
 	char command;
 
 	cout << "Press <M> to go back to the menu or <Q> to quit." << endl;
+
 	do
 	{
 		if (!isValidCommandLength(command))

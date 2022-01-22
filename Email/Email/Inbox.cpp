@@ -24,6 +24,7 @@ void PrintMailsSubject(const string& username, const int& mails)
 void PrintOneMail(const string& username, const int& mail)
 {
 	const int SUBJECT_LINE = 2;
+
 	string fileName = username + "/" + to_string(mail) + ".txt";
 	string buffer = "";
 

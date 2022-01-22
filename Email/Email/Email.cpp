@@ -5,44 +5,39 @@
 #include <string>
 #include <map>
 
-/*#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif*/
-
 using namespace std;
 
 int main()
 {
 	if (!isValidUsersFile())
 	{
-		cout << "An error occured. Please, start the application later.";
+		cout << "An error has occured. Please, start the application later.";
 		return 1;
 	}
 
 	string username = "", password = "";
 
 	map<string, string> usersPass;
-	UsersInfoToMap(usersPass);
+	UsersInfoToMap(usersPass);		// add users' usernames and hashed passwords to the map
 
 	int mainMenuRes = 1;
+
 	do
 	{
 		int startMenuRes = StartMenuScreen(usersPass, username, password);
-		if (startMenuRes == 1)
+		if (startMenuRes == 1)		// 1 is code for an error or quit command
 		{
 			break;
 		}
 
 		mainMenuRes = MainMenu(username, password, usersPass);
-		while (mainMenuRes == 2)
+		while (mainMenuRes == 2)	// 2 is code for going back to the main menu
 		{
 			cout << endl << "You are back to the main menu!" << endl;
 			mainMenuRes = MainMenu(username, password, usersPass);
 		}
 	}
-	while (mainMenuRes == 0);
+	while (mainMenuRes == 0);		// 0 is code for going from main menu to start menu
 
 	cout << endl << "Thank you for using this application!";
 	return 0;

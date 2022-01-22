@@ -13,7 +13,6 @@ bool OpenMail(const string& username, const int& mailsCnt)
 
 	cout << "Which mail do you want to open? ";
 	cin >> mail;
-	//cin.ignore();
 
 	if (mail > mailsCnt)
 	{

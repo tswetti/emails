@@ -81,8 +81,8 @@ void UsersInfoToMap(map<string, string>& info)
 
 	while (getline(usersInfo, buffer))
 	{
-		key = buffer.substr(0, buffer.find(DELIMITER));
-		value = buffer.substr(buffer.find(DELIMITER) + 1);
+		key = buffer.substr(0, buffer.find(DELIMITER));		// get the username, which stops at :
+		value = buffer.substr(buffer.find(DELIMITER) + 1);	// get the hashed password, which starts right after :
 		info.insert(pair<string, string>(key, value));
 	}
 	usersInfo.close();
