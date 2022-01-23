@@ -45,6 +45,9 @@
     <ClCompile Include="Validation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoadEmail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartMenu.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Validation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadEmail.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

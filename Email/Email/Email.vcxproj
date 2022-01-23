@@ -142,6 +142,7 @@
     <ClCompile Include="CloseAccount.cpp" />
     <ClCompile Include="Email.cpp" />
     <ClCompile Include="Inbox.cpp" />
+    <ClCompile Include="LoadEmail.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="OpenMail.cpp" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="CloseAccount.h" />
     <ClInclude Include="Inbox.h" />
+    <ClInclude Include="LoadEmail.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="OpenMail.h" />

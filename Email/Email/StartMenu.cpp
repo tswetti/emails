@@ -3,7 +3,6 @@
 #include "Login.h"
 #include "Validation.h"
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <map>
 
@@ -69,34 +68,4 @@ void printStartMenuGuide()
 		<< "R - register" << endl
 		<< "Q - quit" << endl
 		<< endl;
-}
-
-void usersInfoToMap(map<string, string>& info)
-{
-	string key, value, buffer, fileName = "users.txt";
-	const char DELIMITER = ':';
-
-	ifstream usersInfo;
-	usersInfo.open(fileName);
-
-	while (getline(usersInfo, buffer))
-	{
-		key = buffer.substr(0, buffer.find(DELIMITER));		// get the username which stops at :
-		value = buffer.substr(buffer.find(DELIMITER) + 1);	// get the hashed password which starts right after :
-		info.insert(pair<string, string>(key, value));
-	}
-	usersInfo.close();
-}
-
-char* stringToArray(const string& str)
-{
-	char* arr = new char[str.length() + 1];
-	int cnt = 0;
-
-	for (char el : str)
-	{
-		arr[cnt++] = el;
-	}
-	arr[cnt] = '\0';
-	return arr;
 }

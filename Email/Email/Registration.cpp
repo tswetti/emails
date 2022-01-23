@@ -1,3 +1,4 @@
+#include "LoadEmail.h"
 #include "Registration.h"
 #include "Validation.h"
 #include "StartMenu.h"
