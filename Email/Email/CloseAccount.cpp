@@ -12,7 +12,7 @@
 
 using namespace std;
 
-bool CloseAccount(const string& username, const string& password, int& mails, map<string, string>& userInfo)
+bool closeAccount(const string& username, const string& password, int& mails, map<string, string>& userInfo)
 {
 	string inputPass;
 	cout << "Are you sure you want to delete your account? Enter your password to continue: ";
@@ -27,7 +27,7 @@ bool CloseAccount(const string& username, const string& password, int& mails, ma
 		return false;
 	}
 
-	if (!DeleteDirectory(username, mails) || !RewriteFile(username, password))
+	if (!deleteDirectory(username, mails) || !rewriteFile(username, password))
 	{
 		cout << "An error occured while deleting this user's profile. Please, try closing the account later." << endl;
 		return false;
@@ -39,17 +39,17 @@ bool CloseAccount(const string& username, const string& password, int& mails, ma
 	return true;
 }
 
-bool DeleteDirectory(const string& username, int& mails)
+bool deleteDirectory(const string& username, int& mails)
 {
 	// the directory has to be empty in order to be deleted
-	if (!DeleteAllUserMails(username, mails) || !DeleteTotalMailsFile(username))
+	if (!deleteAllUserMails(username, mails) || !deleteTotalMailsFile(username))
 	{
 		return false;
 	}
 
-	char* directoryName = StringToArray(username);
+	char* directoryName = stringToArray(username);
 
-	if (_rmdir(directoryName) != 0)
+	if (directoryName == nullptr || _rmdir(directoryName) != 0)
 	{
 		delete[] directoryName;
 		return false;
@@ -60,7 +60,7 @@ bool DeleteDirectory(const string& username, int& mails)
 }
 
 
-bool DeleteAllUserMails(const string& username, int& mails)
+bool deleteAllUserMails(const string& username, int& mails)
 {
 	string fileName = "";
 	int cnt = 0;
@@ -68,35 +68,37 @@ bool DeleteAllUserMails(const string& username, int& mails)
 	for (int i = 1; i <= mails; i++)
 	{
 		fileName = username + "/" + to_string(i) + ".txt";
-		char* currentMail = StringToArray(fileName);	// the remove function accepts only char arrays
+		char* currentMail = stringToArray(fileName);	// the remove function accepts only char arrays
 
-		if (remove(currentMail) != 0)
+		if (currentMail == nullptr || remove(currentMail) != 0)
 		{
 			delete[] currentMail;
 			return false;
 		}
 		delete[] currentMail;
 	}
+
 	mails = 0;
 	return true;
 }
 
-bool DeleteTotalMailsFile(const string& username)
+bool deleteTotalMailsFile(const string& username)
 {
 	int cnt = 0;
 	string fileName = username + "/totalMails.txt";
-	char* totalMails = StringToArray(fileName);			// the remove function accepts only char arrays
+	char* totalMails = stringToArray(fileName);			// the remove function accepts only char arrays
 
-	if (remove(totalMails) != 0)
+	if (totalMails == nullptr || remove(totalMails) != 0)
 	{
 		delete[] totalMails;
 		return false;
 	}
+
 	delete[] totalMails;
 	return true;
 }
 
-bool RewriteFile(const string& username, const string& password)
+bool rewriteFile(const string& username, const string& password)
 {
 	string buffer = "";
 

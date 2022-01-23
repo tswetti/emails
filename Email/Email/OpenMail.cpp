@@ -6,7 +6,7 @@
 
 using namespace std;
 
-bool OpenMail(const string& username, const int& mailsCnt)
+bool isOpenMail(const string& username, const int& mailsCnt)
 {
 	const int SENDER_LINE = 0, SUBJECT_LINE = 1, CONTENT_LINE = 2;
 	int mail;

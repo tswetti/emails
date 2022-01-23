@@ -17,11 +17,11 @@ bool isSentMail(const string& username, const map<string, string>& users)
 		return false;
 	}
 
-	int recMails = GetTotalMails(recipient);
+	int recMails = getTotalMails(recipient);
 
-	AddNewMailInfo(username, recipient, recMails, subject, content);
+	addNewMailInfo(username, recipient, recMails, subject, content);
 
-	NewMailNotification(username, recipient);
+	newMailNotification(username, recipient);
 
 	cout << "Message sent successfully!" << endl;
 	return true;
@@ -89,7 +89,7 @@ bool getNewMailInfo(const string& sender, string& recipient, string& subject, st
 }
 
 // update the recipients log file that they received a new mail
-void NewMailNotification(const string& username, const string& recipient)
+void newMailNotification(const string& username, const string& recipient)
 {
 	string recFileName = recipient + "/totalMails.txt";
 
@@ -102,7 +102,7 @@ void NewMailNotification(const string& username, const string& recipient)
 }
 
 // add the new mail to the recipient's directory
-void AddNewMailInfo(const string& username, const string& recipient, int& mails, const string& subject, const string& content)
+void addNewMailInfo(const string& username, const string& recipient, int& mails, const string& subject, const string& content)
 {
 	string recFileName = recipient + "/" + to_string(++mails) + ".txt";
 

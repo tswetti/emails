@@ -5,5 +5,5 @@
 
 using namespace std;
 
-void PrintMailsSubject(const string&, const int&);
-void PrintOneMail(const string&, const int&);
+void printMailsSubject(const string&, const int&);
+void printOneMail(const string&, const int&);

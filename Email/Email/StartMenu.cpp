@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int StartMenuScreen(map<string, string>& loginInfo, string& username, string& password)
+int startMenuScreen(map<string, string>& loginInfo, string& username, string& password)
 {
 	const char	LOG_UPPER = 'L', LOG_LOWER = 'l',
 				REG_UPPER = 'R', REG_LOWER = 'r',
@@ -71,7 +71,7 @@ void printStartMenuGuide()
 		<< endl;
 }
 
-void UsersInfoToMap(map<string, string>& info)
+void usersInfoToMap(map<string, string>& info)
 {
 	string key, value, buffer, fileName = "users.txt";
 	const char DELIMITER = ':';
@@ -81,14 +81,14 @@ void UsersInfoToMap(map<string, string>& info)
 
 	while (getline(usersInfo, buffer))
 	{
-		key = buffer.substr(0, buffer.find(DELIMITER));		// get the username, which stops at :
-		value = buffer.substr(buffer.find(DELIMITER) + 1);	// get the hashed password, which starts right after :
+		key = buffer.substr(0, buffer.find(DELIMITER));		// get the username which stops at :
+		value = buffer.substr(buffer.find(DELIMITER) + 1);	// get the hashed password which starts right after :
 		info.insert(pair<string, string>(key, value));
 	}
 	usersInfo.close();
 }
 
-char* StringToArray(const string& str)
+char* stringToArray(const string& str)
 {
 	char* arr = new char[str.length() + 1];
 	int cnt = 0;

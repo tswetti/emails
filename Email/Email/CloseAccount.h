@@ -6,8 +6,8 @@
 
 using namespace std;
 
-bool CloseAccount(const string&, const string&, int&, map<string, string>&);
-bool DeleteDirectory(const string&, int&);
-bool RewriteFile(const string&, const string&);
-bool DeleteAllUserMails(const string&, int&);
-bool DeleteTotalMailsFile(const string&);
+bool closeAccount(const string&, const string&, int&, map<string, string>&);
+bool deleteDirectory(const string&, int&);
+bool rewriteFile(const string&, const string&);
+bool deleteAllUserMails(const string&, int&);
+bool deleteTotalMailsFile(const string&);

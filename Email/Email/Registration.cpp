@@ -38,23 +38,23 @@ bool isSuccessfulRegistration(map<string, string>& usersInfo, string& username, 
 	hash<string> passHash;
 	password = to_string(passHash(password));
 
-	if (!CreateDirectory(username))
+	if (!createDirectory(username))
 	{
 		cout << "Unable to create a directory. Registration failed." << endl;
 		return false;
 	}
 
-	SaveNewUser(usersInfo, username, password);
+	saveNewUser(usersInfo, username, password);
 
 	cout << "Successful registration!" << endl;
 	return true;
 }
 
-bool CreateDirectory(const string& username)
+bool createDirectory(const string& username)
 {
-	char* directoryName = StringToArray(username);
+	char* directoryName = stringToArray(username);
 
-	if (_mkdir(directoryName) != 0)
+	if (directoryName == nullptr || _mkdir(directoryName) != 0)
 	{
 		delete[] directoryName;
 		return false;
@@ -64,7 +64,7 @@ bool CreateDirectory(const string& username)
 	return true;
 }
 
-void SaveNewUser(map<string, string>& usersInfo, const string& username, const string& password)
+void saveNewUser(map<string, string>& usersInfo, const string& username, const string& password)
 {
 	ofstream users;
 	users.open("users.txt", fstream::app);

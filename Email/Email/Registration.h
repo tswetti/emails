@@ -7,5 +7,5 @@
 using namespace std;
 
 bool isSuccessfulRegistration(map<string, string>&, string&, string&);
-bool CreateDirectory(const string&);
-void SaveNewUser(map<string, string>&, const string&, const string&);
+bool createDirectory(const string&);
+void saveNewUser(map<string, string>&, const string&, const string&);

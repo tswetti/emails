@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int StartMenuScreen(map<string, string>&, string&, string&);
+int startMenuScreen(map<string, string>&, string&, string&);
 void printStartMenuGuide();
-void UsersInfoToMap(map<string, string>&);
-char* StringToArray(const string&);
+void usersInfoToMap(map<string, string>&);
+char* stringToArray(const string&);

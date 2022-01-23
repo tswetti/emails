@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int MainMenu(string& username, string& password, map<string, string>& userInfo)
+int mainMenuScreen(string& username, string& password, map<string, string>& userInfo)
 {
 	const char	CLOSE_UPPER = 'C', CLOSE_LOWER = 'c',
 				INBOX_UPPER = 'I', INBOX_LOWER = 'i',
@@ -21,9 +21,9 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 				SEND_UPPER = 'S', SEND_LOWER = 's',
 				QUIT_UPPER = 'Q', QUIT_LOWER = 'q';
 
-	int mails = GetTotalMails(username);
+	int mails = getTotalMails(username);
 
-	PrintMainMenuGuide(mails);
+	printMainMenuGuide(mails);
 
 	cout << "Type a command: ";
 	char command;
@@ -38,7 +38,7 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 
 		if (command == CLOSE_UPPER || command == CLOSE_LOWER)
 		{
-			if (!CloseAccount(username, password, mails, userInfo))
+			if (!closeAccount(username, password, mails, userInfo))
 			{
 				return 1;
 			}
@@ -49,7 +49,7 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 		}
 		else if (command == INBOX_UPPER || command == INBOX_LOWER)
 		{
-			PrintMailsSubject(username, mails);
+			printMailsSubject(username, mails);
 			cout << endl;
 
 			if (!goToMainMenu())
@@ -67,7 +67,7 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 		}
 		else if (command == OPEN_UPPER || command == OPEN_LOWER)
 		{
-			if (!OpenMail(username, mails))
+			if (!isOpenMail(username, mails))
 			{
 				cout << "No such mail!" << endl;
 			}
@@ -109,7 +109,7 @@ int MainMenu(string& username, string& password, map<string, string>& userInfo)
 	return 1;
 }
 
-void PrintMainMenuGuide(const int& mails)
+void printMainMenuGuide(const int& mails)
 {
 	cout << "You have " << mails;
 	cout << ((mails == 1) ? " mail. " : " mails. ");
@@ -123,7 +123,7 @@ void PrintMainMenuGuide(const int& mails)
 		<< endl;
 }
 
-int GetTotalMails(const string& username)
+int getTotalMails(const string& username)
 {
 	string fileName = username + "/totalMails.txt";
 	string buffer = "";

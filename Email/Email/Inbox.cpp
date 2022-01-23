@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void PrintMailsSubject(const string& username, const int& mails)
+void printMailsSubject(const string& username, const int& mails)
 {
 	if (mails == 0)
 	{
@@ -16,12 +16,12 @@ void PrintMailsSubject(const string& username, const int& mails)
 
 	for (int i = 1; i <= mails; i++)
 	{
-		PrintOneMail(username, i);
+		printOneMail(username, i);
 		cout << endl;
 	}
 }
 
-void PrintOneMail(const string& username, const int& mail)
+void printOneMail(const string& username, const int& mail)
 {
 	const int SUBJECT_LINE = 2;
 
