@@ -25,6 +25,11 @@ bool isOpenMail(const string& username, const int& mailsCnt)
 	ifstream mailInfo;
 	mailInfo.open(fileName);
 
+	if (!mailInfo.is_open())
+	{
+		return false;
+	}
+
 	cout << endl;
 	for (int i = 0; i < CONTENT_LINE + 1; i++)
 	{

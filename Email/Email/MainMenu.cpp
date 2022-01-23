@@ -130,7 +130,7 @@ int getTotalMails(const string& username)
 	int cnt = 0;
 
 	fstream totalMails;
-	totalMails.open(fileName, fstream::in | fstream:: out | fstream::app);
+	totalMails.open(fileName, fstream::in | fstream::out | fstream::app);
 
 	// every time a mail is sent, a new line is added to the totalMails file, thus the lines count is equal to the mails count
 	while (getline(totalMails, buffer))

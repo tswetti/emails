@@ -16,12 +16,15 @@ void printMailsSubject(const string& username, const int& mails)
 
 	for (int i = 1; i <= mails; i++)
 	{
-		printOneMail(username, i);
+		if (!printOneMail(username, i))
+		{
+			continue;
+		}
 		cout << endl;
 	}
 }
 
-void printOneMail(const string& username, const int& mail)
+bool printOneMail(const string& username, const int& mail)
 {
 	const int SUBJECT_LINE = 2;
 
@@ -31,9 +34,15 @@ void printOneMail(const string& username, const int& mail)
 	ifstream mailInfo;
 	mailInfo.open(fileName);
 
+	if (!mailInfo.is_open())
+	{
+		return false;
+	}
+
 	for (int i = 0; i < SUBJECT_LINE; i++)
 	{
 		getline(mailInfo, buffer);
 	}
 	cout << mail << ": " << buffer;
+	return true;
 }
