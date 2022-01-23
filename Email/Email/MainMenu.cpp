@@ -59,8 +59,6 @@ int mainMenuScreen(string& username, string& password, map<string, string>& user
 		}
 		else if (command == LOG_OFF_UPPER || command == LOG_OFF_LOWER)
 		{
-			username = "";
-			password = "";
 			cout << "You logged out successfully!" << endl << endl;
 			return 0;
 		}

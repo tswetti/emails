@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <cstdio>
+#include <cstdio>	// used for removing files
 #include <string>
 #include <map>
 #include <unordered_map>
@@ -93,7 +93,6 @@ bool deleteAllUserMails(const string& username, int& mails)
 		delete[] currentMail;
 	}
 
-	mails = 0;
 	return true;
 }
 

@@ -104,7 +104,7 @@ bool isValidStrInput(const string& str)
 {
 	for (char el : str)
 	{
-		if (!isLowercaseLetter(el) && !isUppercaseLetter(el) && !isDigit(el) && !isAllowedSpecialSymbol(el))
+		if (!isLowercaseLetter(el) && !isUppercaseLetter(el) && !isDigit(el) && (!isAllowedSpecialSymbol(el) && el != '!'))
 		{
 			return false;
 		}
