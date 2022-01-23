@@ -66,12 +66,14 @@ void usersInfoToMap(map<string, string>& info)
 char* stringToArray(const string& str)
 {
 	int cnt = 0;
+	int newLength = str.length() + 1;
 
-	char* arr = new char[str.length() + 1];
-	for (char el : str)
+	char* arr = new char[newLength];
+	for (int i = 0; i < newLength - 1; i++)
 	{
-		arr[cnt++] = el;
+		arr[i] = str[cnt++];
 	}
+
 	arr[cnt] = '\0';
 
 	return arr;

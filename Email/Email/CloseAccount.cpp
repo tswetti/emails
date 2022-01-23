@@ -41,7 +41,7 @@ bool closeAccount(const string& username, const string& password, int& mails, ma
 
 	userInfo.erase(username);
 
-	cout << "Profile deleted successfully!" << endl;
+	cout << "Account deleted successfully!" << endl;
 	return true;
 }
 
