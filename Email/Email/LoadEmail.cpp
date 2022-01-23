@@ -1,3 +1,18 @@
+/**
+*
+* Solution to course project # 03
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2021/2022
+*
+* @author Tsvetelina Tsvetanova
+* @idnumber 3MI0600034
+* @compiler VC
+*
+* This file contains the function which manages the other two main functions. It also contains two functions which are not specific to another functionality
+*
+*/
+
 #include "LoadEmail.h"
 #include "StartMenu.h"
 #include "MainMenu.h"

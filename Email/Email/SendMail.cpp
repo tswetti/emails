@@ -1,3 +1,18 @@
+/**
+*
+* Solution to course project # 03
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2021/2022
+*
+* @author Tsvetelina Tsvetanova
+* @idnumber 3MI0600034
+* @compiler VC
+*
+* This is the send mail functionality which allows users to send mails to other users (username and subject are required)
+*
+*/
+
 #include "SendMail.h"
 #include "MainMenu.h"
 #include "Validation.h"

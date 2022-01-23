@@ -1,3 +1,18 @@
+/**
+*
+* Solution to course project # 03
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2021/2022
+*
+* @author Tsvetelina Tsvetanova
+* @idnumber 3MI0600034
+* @compiler VC
+*
+* This is the close account functionality which deletes the user's information from the application
+*
+*/
+
 #include "CloseAccount.h"
 #include "LoadEmail.h"
 #include "Validation.h"
