@@ -9,9 +9,9 @@ using namespace std;
 
 int main()
 {
-	if (!isValidUsersFile())
+	if (!validateUsersFile())
 	{
-		cout << "An error has occured. Please, start the application later.";
+		cout << "An error has occured. Please, open the application later.";
 		return 1;
 	}
 
@@ -30,12 +30,11 @@ int main()
 			break;
 		}
 
-		mainMenuRes = mainMenuScreen(username, password, usersPass);
-		while (mainMenuRes == 2)	// 2 is code for going back to the main menu
+		do
 		{
-			cout << endl << "You are back to the main menu!" << endl;
 			mainMenuRes = mainMenuScreen(username, password, usersPass);
 		}
+		while (mainMenuRes == 2);	// 2 is code for going back to the main meu
 	}
 	while (mainMenuRes == 0);		// 0 is code for going from main menu to start menu
 

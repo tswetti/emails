@@ -6,7 +6,7 @@
 
 using namespace std;
 
-bool isValidUsersFile();
+bool validateUsersFile();
 bool isValidCommandLength(char&);
 bool isLowercaseLetter(const char&);
 bool isUppercaseLetter(const char&);

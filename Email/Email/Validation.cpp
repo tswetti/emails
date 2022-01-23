@@ -8,7 +8,7 @@
 
 using namespace std;
 
-bool isValidUsersFile()
+bool validateUsersFile()
 {
 	fstream users, usersCopy;
 	users.open("users.txt", fstream::in | fstream::out | fstream::app);

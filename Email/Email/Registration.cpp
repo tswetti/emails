@@ -5,7 +5,14 @@
 #include <fstream>
 #include <string>
 #include <unordered_map>	// used for hashing
-#include <direct.h>			// used for creating directories
+
+// used for creating directories
+#ifdef _WIN32
+#include <direct.h>	
+#else
+#include <sys/types.h>
+#include <sys/stat.h>
+#endif
 
 using namespace std;
 
@@ -52,15 +59,23 @@ bool isSuccessfulRegistration(map<string, string>& usersInfo, string& username, 
 
 bool createDirectory(const string& username)
 {
+	#if _WIN32
 	char* directoryName = stringToArray(username);
-
 	if (directoryName == nullptr || _mkdir(directoryName) != 0)
 	{
 		delete[] directoryName;
 		return false;
 	}
-	
 	delete[] directoryName;
+
+	#else
+	const int status = mkdir(username, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	if (status == -1)
+	{
+		return false;
+	}
+	#endif
+
 	return true;
 }
 

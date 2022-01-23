@@ -8,7 +8,13 @@
 #include <string>
 #include <map>
 #include <unordered_map>
-#include <direct.h>
+
+// used for deleting directories
+#ifdef _WIN32
+#include <direct.h>	
+#else
+#include <unistd.h>
+#endif
 
 using namespace std;
 
@@ -49,11 +55,20 @@ bool deleteDirectory(const string& username, int& mails)
 
 	char* directoryName = stringToArray(username);
 
+	#if _WIN32
 	if (directoryName == nullptr || _rmdir(directoryName) != 0)
 	{
 		delete[] directoryName;
 		return false;
 	}
+
+	#else
+	if (directoryName == nullptr || rmdir(directoryName) != 0)
+	{
+		delete[] directoryName;
+		return false;
+	}
+	#endif
 
 	delete[] directoryName;
 	return true;
