@@ -7,7 +7,7 @@
 #include <string>
 #include <unordered_map>	// used for hashing
 
-// used for creating directories
+// used to create directories
 #ifdef _WIN32
 #include <direct.h>	
 #else

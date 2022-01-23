@@ -1,5 +1,5 @@
 #include "Inbox.h"
-#include "Validation.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -28,7 +28,7 @@ bool printOneMail(const string& username, const int& mail)
 {
 	const int SUBJECT_LINE = 2;
 
-	string fileName = username + "/" + to_string(mail) + ".txt";
+	string fileName = username + '/' + to_string(mail) + ".txt";
 	string buffer = "";
 
 	ifstream mailInfo;
@@ -43,6 +43,8 @@ bool printOneMail(const string& username, const int& mail)
 	{
 		getline(mailInfo, buffer);
 	}
+
 	cout << mail << ": " << buffer;
+
 	return true;
 }

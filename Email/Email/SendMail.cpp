@@ -1,6 +1,7 @@
 #include "SendMail.h"
 #include "MainMenu.h"
 #include "Validation.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -36,16 +37,16 @@ bool getNewMailInfo(const string& sender, string& recipient, string& subject, st
 	{
 		cout << "To: ";
 		cin >> recipient;
+		cin.ignore();
 
 		if (recipient == "Q" || recipient == "q")
 		{
 			return false;
 		}
 
-		cin.ignore();
 		sameUser = false;
 
-		for (auto& pair : users)
+		for (auto pair : users)
 		{
 			if (sender == recipient)
 			{
@@ -88,7 +89,7 @@ bool getNewMailInfo(const string& sender, string& recipient, string& subject, st
 	return true;
 }
 
-// update the recipients log file that they received a new mail
+// update the recipient's log file that they received a new mail
 void newMailNotification(const string& username, const string& recipient)
 {
 	string recFileName = recipient + "/totalMails.txt";
@@ -96,7 +97,7 @@ void newMailNotification(const string& username, const string& recipient)
 	ofstream newMail;
 	newMail.open(recFileName, fstream::app);
 
-	newMail << "New mail from " << username << "!" << endl;
+	newMail << "New mail from " << username << '!' << endl;
 
 	newMail.close();
 }
@@ -104,7 +105,7 @@ void newMailNotification(const string& username, const string& recipient)
 // add the new mail to the recipient's directory
 void addNewMailInfo(const string& username, const string& recipient, int& mails, const string& subject, const string& content)
 {
-	string recFileName = recipient + "/" + to_string(++mails) + ".txt";
+	string recFileName = recipient + '/' + to_string(++mails) + ".txt";
 
 	ofstream newMailInfo;
 	newMailInfo.open(recFileName);

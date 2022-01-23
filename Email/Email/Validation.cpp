@@ -64,6 +64,7 @@ bool isValidCommandLength(char& command)
 
 	if (commandStr.length() != 1)
 	{
+		cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
 		return false;
 	}
 

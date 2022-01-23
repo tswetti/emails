@@ -1,8 +1,7 @@
-#include "LoadEmail.h"
 #include "CloseAccount.h"
-#include "MainMenu.h"
-#include "StartMenu.h"
+#include "LoadEmail.h"
 #include "Validation.h"
+
 #include <iostream>
 #include <fstream>
 #include <cstdio>
@@ -21,8 +20,8 @@ using namespace std;
 
 bool closeAccount(const string& username, const string& password, int& mails, map<string, string>& userInfo)
 {
-	string inputPass;
 	cout << "Are you sure you want to delete your account? Enter your password to continue: ";
+	string inputPass;
 	cin >> inputPass;
 
 	hash<string> passHash;
@@ -83,7 +82,7 @@ bool deleteAllUserMails(const string& username, int& mails)
 
 	for (int i = 1; i <= mails; i++)
 	{
-		fileName = username + "/" + to_string(i) + ".txt";
+		fileName = username + '/' + to_string(i) + ".txt";
 		char* currentMail = stringToArray(fileName);	// the remove function accepts only char arrays
 
 		if (currentMail == nullptr || remove(currentMail) != 0)
@@ -122,7 +121,7 @@ bool rewriteFile(const string& username, const string& password)
 	users.open("users.txt", fstream::in);
 	usersCopy.open("usersCopy.txt", fstream::out | fstream::app);
 
-	// rewrite the file with all info except this user's
+	// rewrite the file with all info except the deleted user's
 	while (getline(users, buffer))
 	{
 		if (buffer != (username + ':' + password))

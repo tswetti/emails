@@ -2,13 +2,14 @@
 #include "Registration.h"
 #include "Login.h"
 #include "Validation.h"
+
 #include <iostream>
 #include <string>
 #include <map>
 
 using namespace std;
 
-int startMenuScreen(map<string, string>& loginInfo, string& username, string& password)
+int startMenuScreen(string& username, string& password, map<string, string>& usersInfo)
 {
 	const char	LOG_UPPER = 'L', LOG_LOWER = 'l',
 				REG_UPPER = 'R', REG_LOWER = 'r',
@@ -23,30 +24,35 @@ int startMenuScreen(map<string, string>& loginInfo, string& username, string& pa
 	{
 		if (!isValidCommandLength(command))
 		{
-			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
 			continue;
 		}
 
 		if (command == LOG_UPPER || command == LOG_LOWER)
 		{
 			cout << endl;
-			if (!isSuccessfulLogin(loginInfo, username, password))
+
+			if (!isSuccessfulLogin(usersInfo, username, password))
 			{
 				return 1;
 			}
+
 			cout << endl << "Welcome back, " << username << "!" << endl;
 			cin.ignore();
+
 			return 0;
 		}
 		else if (command == REG_UPPER || command == REG_LOWER)
 		{
 			cout << endl;
-			if (!isSuccessfulRegistration(loginInfo, username, password))
+
+			if (!isSuccessfulRegistration(usersInfo, username, password))
 			{
 				return 1;
 			}
+
 			cout << endl << "Welcome, " << username << "!" << endl;
 			cin.ignore();
+
 			return 0;
 		}
 		else if (command == QUIT_UPPER || command == QUIT_LOWER)

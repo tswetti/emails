@@ -1,10 +1,10 @@
 #include "MainMenu.h"
-#include "StartMenu.h"
 #include "CloseAccount.h"
 #include "SendMail.h"
 #include "Inbox.h"
 #include "OpenMail.h"
 #include "Validation.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -32,7 +32,6 @@ int mainMenuScreen(string& username, string& password, map<string, string>& user
 	{
 		if (!isValidCommandLength(command))
 		{
-			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
 			continue;
 		}
 
@@ -104,7 +103,8 @@ int mainMenuScreen(string& username, string& password, map<string, string>& user
 		{
 			cout << "Invalid command! Please, try again: ";
 		}
-	} while (true);
+	}
+	while (true);
 
 	return 1;
 }
@@ -154,7 +154,6 @@ bool goToMainMenu()
 	{
 		if (!isValidCommandLength(command))
 		{
-			cout << "The command should consist of one letter only. " << endl << "Please, try again: ";
 			continue;
 		}
 
@@ -170,7 +169,6 @@ bool goToMainMenu()
 		{
 			cout << "Invalid command! Please, try again: ";
 		}
-	} while (true);
-
-	return false;
+	}
+	while (true);
 }

@@ -6,5 +6,5 @@
 
 using namespace std;
 
-int startMenuScreen(map<string, string>&, string&, string&);
+int startMenuScreen(string&, string&, map<string, string>&);
 void printStartMenuGuide();

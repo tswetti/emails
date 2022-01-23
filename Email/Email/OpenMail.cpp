@@ -1,5 +1,5 @@
 #include "OpenMail.h"
-#include "Validation.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,7 +19,7 @@ bool isOpenMail(const string& username, const int& mailsCnt)
 		return false;
 	}
 
-	string fileName = username + "/" + to_string(mail) + ".txt";
+	string fileName = username + '/' + to_string(mail) + ".txt";
 	string buffer = "";
 
 	ifstream mailInfo;
@@ -31,6 +31,7 @@ bool isOpenMail(const string& username, const int& mailsCnt)
 	}
 
 	cout << endl;
+
 	for (int i = 0; i < CONTENT_LINE + 1; i++)
 	{
 		if (i == SENDER_LINE)
