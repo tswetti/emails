@@ -77,7 +77,7 @@ bool getNewMailInfo(const string& sender, string& recipient, string& subject, st
 
 		if (sameUser)
 		{
-			cout << "Sender and recipient cannot be the same person!" << endl;
+			cout << "You cannot send mails to yourself!" << endl;
 		}
 		else if (!match)
 		{

@@ -29,7 +29,7 @@ bool isOpenMail(const string& username, const int& mailsCnt)
 	cout << "Which mail do you want to open? ";
 	cin >> mail;
 
-	if (mail > mailsCnt)
+	if (mail < 1 || mail > mailsCnt)
 	{
 		return false;
 	}

@@ -44,7 +44,7 @@ bool closeAccount(const string& username, const string& password, int& mails, ma
 
 	if (inputPass != password)
 	{
-		cout << "Wrong password!";
+		cout << "Wrong password! The account will not be deleted." << endl;
 		return false;
 	}
 
