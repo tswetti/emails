@@ -190,7 +190,7 @@ bool isValidUsername(const map<string, string>& usersInfo, const string& usernam
 		}
 	}
 
-	for (auto pair : usersInfo)
+	for (auto& pair : usersInfo)
 	{
 		if (pair.first == username)
 		{

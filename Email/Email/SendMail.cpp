@@ -61,7 +61,7 @@ bool getNewMailInfo(const string& sender, string& recipient, string& subject, st
 
 		sameUser = false;
 
-		for (auto pair : users)
+		for (auto& pair : users)
 		{
 			if (sender == recipient)
 			{

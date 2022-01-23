@@ -46,7 +46,7 @@ bool isSuccessfulLogin(const map<string, string>& userInfo, string& username, st
 
 		password = to_string(passHash(password));
 
-		for (auto pair : userInfo)
+		for (auto& pair : userInfo)
 		{
 			if (pair.first == username && pair.second == password)
 			{
